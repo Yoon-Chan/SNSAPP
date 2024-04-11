@@ -98,6 +98,7 @@ jobs:
                   name: instrumentation_test_report
                   path: app/build/reports/androidTests/connected/
                   emulator-build: 7425822
+              if: always()
 
 
     build:
