@@ -21,7 +21,7 @@ jobs:
                     github_token: ${{ secrets.github_token }}
                     reporter: github-pr-review # Change reporter
 
-    check-test:
+    check-unit-test:
         name: Check App Test
         needs: [ktlint]
         runs-on: ubuntu-latest
@@ -45,9 +45,35 @@ jobs:
                   name: test_report
                   path: app/build/reports/tests/testDebugUnitTest/
 
+    instrumentation-test:
+        name: check UI test(instrumentation-test)
+        needs: [check-unit-test]
+        runs-on: macos-latest
+        strategy:
+            matrix:
+                api-level: [ 29, 34 ]
+                target: [ default ]
+        steps:
+            - name: Checkout the code
+              uses: actions/checkout@v4
+
+            - name: Run espresso tests
+              uses: reactivecircus/android-emulator-runner@v2
+              with:
+                  api-level: ${{ matrix.api-level }}
+                  target: ${{ matrix.target }}
+                  script: ./gradlew connectedCheck
+
+            - name: Upload report
+              uses: actions/upload-artifact@v4
+              with:
+                  name: instrumentation_test_report
+                  path: app/build/reports/androidTests/connected/
+
+
     build:
         name: check Build
-        needs: [check-test]
+        needs: [instrumentation-test]
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v4
