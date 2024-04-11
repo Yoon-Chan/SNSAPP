@@ -14,6 +14,9 @@ plugins-library = "8.1.1"
 
 compose-bom = "2024.04.00"
 
+ktlint-version = "12.1.0"
+
+
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -37,3 +40,4 @@ androidx-compose-ui-ui-test-manifest = {group="androidx.compose.ui", name="ui-te
 android-application = { id = "com.android.application", version.ref = "plugins-application" }
 koltlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "plugins-android" }
 android-library = { id = "com.android.library", version.ref = "plugins-library" }
+ktlint = { id= "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-version"}

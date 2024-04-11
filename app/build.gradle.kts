@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.ktlint)
 }
 
 android {
@@ -25,7 +26,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -67,6 +68,8 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.ui.test.manifest)
 
+    // ktlintRuleset("io.nlopez.compose.rules:ktlint:0.3.13")
+    // ktlintRuleset("com.twitter.compose.rules:ktlint:0.0.26")
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":presentation"))
