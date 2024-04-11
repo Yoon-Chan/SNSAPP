@@ -51,7 +51,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                api-level: [ 29, 34 ]
+                api-level: [ 29, 33 ]
                 target: [ default ]
         steps:
             - name: Checkout the code
@@ -76,6 +76,7 @@ jobs:
               with:
                   name: instrumentation_test_report
                   path: app/build/reports/androidTests/connected/
+                  emulator-build: 7425822
 
 
     build:
