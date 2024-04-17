@@ -23,7 +23,6 @@ jobs:
 
     check-unit-test:
         name: Check App Test
-        needs: [ktlint]
         runs-on: ubuntu-latest
         steps:
             - name: Checkout the code
@@ -48,7 +47,6 @@ jobs:
 
     instrumentation-test:
         name: check UI test(instrumentation-test)
-        needs: [check-unit-test]
         runs-on: macos-latest
         strategy:
             matrix:
