@@ -83,7 +83,7 @@ jobs:
 
     build:
         name: check Build
-        needs: [instrumentation-test]
+        needs: [ktlint]
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v4
