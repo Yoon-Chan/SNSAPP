@@ -2,12 +2,19 @@
 activity-compose = "1.8.2"
 androidx-junit = "1.1.5"
 appcompat = "1.6.1"
+coil-compose = "2.6.0"
+converter-gson = "2.9.0"
 core-ktx = "1.12.0"
 espresso-core = "3.5.1"
+hilt-android = "2.48"
 junit = "4.13.2"
+kotlinx-coroutines-core = "1.8.0"
 lifecycle-runtime-ktx = "2.7.0"
 material = "1.11.0"
 
+orbit-viewmodel = "7.0.1"
+paging-compose = "3.3.0-beta01"
+paging-runtime = "3.2.1"
 plugins-application = "8.1.1"
 plugins-android = "1.8.10"
 plugins-library = "8.1.1"
@@ -15,7 +22,10 @@ plugins-library = "8.1.1"
 compose-bom = "2024.04.00"
 
 ktlint-version = "12.1.0"
+retrofit = "2.9.0"
+room-runtime = "2.6.1"
 
+ksp="1.8.10-1.0.9"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
@@ -24,7 +34,17 @@ androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso-core" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+androidx-paging-common = { module = "androidx.paging:paging-common", version.ref = "paging-runtime" }
+androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging-compose" }
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging-runtime" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room-runtime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room-runtime" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converter-gson" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt-android" }
 junit = { module = "junit:junit", version.ref = "junit" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-core" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 
 androidx-compose-ui= { group = "androidx.compose.ui", name= "ui" }
@@ -35,9 +55,14 @@ androidx-compose-compose-bom = {group= "androidx.compose", name = "compose-bom",
 androidx-compose-ui-ui-test-junit4 = {group="androidx.compose.ui", name="ui-test-junit4"}
 androidx-compose-ui-ui-tooling = {group="androidx.compose.ui", name="ui-tooling"}
 androidx-compose-ui-ui-test-manifest = {group="androidx.compose.ui", name="ui-test-manifest"}
+orbit-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbit-viewmodel" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "plugins-application" }
 koltlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "plugins-android" }
 android-library = { id = "com.android.library", version.ref = "plugins-library" }
 ktlint = { id= "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-version"}
+com-google-devtools-ksp= {id= "com.google.devtools.ksp", version.ref = "ksp"}
+com-google-dagger-hilt-android = {id="com.google.dagger.hilt.android", version.ref = "hilt-android"}
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "plugins-android" }
