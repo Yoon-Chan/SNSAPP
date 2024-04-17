@@ -10,7 +10,13 @@ indent_size = 4
 insert_final_newline = true
 max_line_length = 150
 tab_width = 1
-
+ij_kotlin_line_comment_add_space = true
+ij_any_line_comment_add_space = true
+ij_kotlin_imports_layout=*
+ij_any_keep_indents_on_empty_lines = true
+ij_any_parentheses_expression_new_line_after_left_paren = false
+ij_any_parentheses_expression_right_paren_on_new_line = false
 
 [*.{kt,kts}]
 ktlint_function_naming_ignore_when_annotated_with=Composable
+disabled./_rules = import-ordering

@@ -56,7 +56,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -72,38 +71,19 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.ui.test.manifest)
-
-    //retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-
-    //hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-
-    //orbit
     implementation(libs.orbit.viewmodel)
-
-    //coil
     implementation(libs.coil.compose)
-
-    //paging
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.paging.runtime)
-
-    // alternatively - without Android dependencies for tests
     testImplementation(libs.androidx.paging.common)
-
-    //coroutine-core
     implementation(libs.kotlinx.coroutines.core)
-
-    //room
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
-
-    // ktlintRuleset("io.nlopez.compose.rules:ktlint:0.3.13")
-    // ktlintRuleset("com.twitter.compose.rules:ktlint:0.0.26")
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":presentation"))
