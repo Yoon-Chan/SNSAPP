@@ -1,11 +1,8 @@
 package com.example.presentation.ui.theme
 
 import androidx.compose.material3.Typography
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.*
-import androidx.compose.ui.unit.sp
 import com.example.presentation.*
-
 
 private val pretendardFontFamily = FontFamily(Font(R.font.pretendardvariable))
 // Set of Material typography styles to start with

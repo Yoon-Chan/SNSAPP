@@ -15,9 +15,9 @@ material = "1.11.0"
 orbit-viewmodel = "7.0.1"
 paging-compose = "3.3.0-beta01"
 paging-runtime = "3.2.1"
-plugins-application = "8.1.1"
-plugins-android = "1.8.10"
-plugins-library = "8.1.1"
+plugins-application = "8.1.4"
+plugins-android = "1.9.0"
+plugins-library = "8.1.4"
 
 compose-bom = "2024.04.00"
 
@@ -25,7 +25,7 @@ ktlint-version = "12.1.0"
 retrofit = "2.9.0"
 room-runtime = "2.6.1"
 
-ksp="1.8.10-1.0.9"
+ksp="1.9.0-1.0.12"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
