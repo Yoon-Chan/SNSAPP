@@ -17,14 +17,13 @@ fun LoginNavHost() {
                 navController.navigate(LoginRoute.LoginScreen.route)
             }
         }
-        
+
         composable(route = LoginRoute.LoginScreen.route) {
             LoginScreen()
         }
-        
+
         composable(route = LoginRoute.SignUpScreen.route) {
             SignUpScreen(id = "", username = "", password1 = "", password2 = "", {}, {}, {}, {}, {})
         }
-        
     }
 }

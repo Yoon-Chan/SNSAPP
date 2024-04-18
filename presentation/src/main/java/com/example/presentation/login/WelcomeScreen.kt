@@ -17,9 +17,7 @@ import com.example.presentation.component.SubmitButton
 import com.example.presentation.ui.theme.SnsProjectTheme
 
 @Composable
-fun WelcomeScreen(
-    onNavigationToLoginScreen: () -> Unit
-) {
+fun WelcomeScreen(onNavigationToLoginScreen: () -> Unit) {
     Surface {
         Box(
             modifier = Modifier.fillMaxSize(),

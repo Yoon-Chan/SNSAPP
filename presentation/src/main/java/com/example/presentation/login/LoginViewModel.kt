@@ -8,16 +8,16 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
-) : ViewModel() {
-    
-    fun onLoginClick() {
-        val id = ""
-        val pwd = ""
-        viewModelScope.launch {
-            loginUseCase(id, pwd)
+class LoginViewModel
+    @Inject
+    constructor(
+        private val loginUseCase: LoginUseCase,
+    ) : ViewModel() {
+        fun onLoginClick() {
+            val id = ""
+            val pwd = ""
+            viewModelScope.launch {
+                loginUseCase(id, pwd)
+            }
         }
     }
-    
-}
