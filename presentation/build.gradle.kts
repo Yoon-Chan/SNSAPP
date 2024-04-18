@@ -4,6 +4,7 @@ plugins {
     id("com.google.devtools.ksp")
     alias(libs.plugins.ktlint)
     alias(libs.plugins.kotlin.serialization)
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -67,5 +68,11 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
+    ksp(libs.dagger.compiler) // Dagger compiler
+    ksp(libs.hilt.compiler)   // Hilt compiler
     implementation(project(":domain"))
+    implementation(libs.orbit.core)
+    implementation(libs.orbit.viewmodel)
+    implementation(libs.orbit.compose)
+    testImplementation(libs.orbit.test)
 }

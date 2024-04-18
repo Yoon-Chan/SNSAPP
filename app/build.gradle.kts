@@ -75,6 +75,8 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    ksp(libs.dagger.compiler) // Dagger compiler
+    ksp(libs.hilt.compiler)   // Hilt compiler
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.orbit.viewmodel)
