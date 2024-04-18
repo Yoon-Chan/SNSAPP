@@ -44,6 +44,10 @@ android {
 }
 
 dependencies {
+//     implementation("androidx.core:core-ktx:1.9.0")
+    implementation(libs.androidx.appcompat)
+//     implementation("com.google.android.material:material:1.9.0")
+    implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
