@@ -8,11 +8,13 @@ converter-gson = "2.9.0"
 core-ktx = "1.12.0"
 espresso-core = "3.5.1"
 hilt-android = "2.48"
+hilt-navigation-compose = "1.2.0"
 junit = "4.13.2"
 kotlinx-coroutines-core = "1.8.0"
 lifecycle-runtime-ktx = "2.7.0"
 material = "1.11.0"
 
+navigation-compose = "2.7.7"
 orbit-viewmodel = "7.0.1"
 paging-compose = "3.3.0-beta01"
 paging-runtime = "3.2.1"
@@ -34,8 +36,10 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso-core" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 androidx-paging-common = { module = "androidx.paging:paging-common", version.ref = "paging-runtime" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging-compose" }
 androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging-runtime" }

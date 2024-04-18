@@ -14,9 +14,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.presentation.component.LoginTextField
 import com.example.presentation.component.SubmitButton
 import com.example.presentation.ui.theme.SnsProjectTheme
+
+@Composable
+fun LoginScreen(viewmodel: LoginViewModel = hiltViewModel()) {
+    LoginScreen(
+        id = "",
+        password = "",
+        onIdChange = {},
+        passwordChange = {},
+        onNavigationToSignUpScreen = { viewmodel.onLoginClick() },
+    )
+}
 
 @Composable
 fun LoginScreen(
@@ -89,7 +101,13 @@ fun LoginScreen(
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
-                Row(modifier = Modifier.align(Alignment.CenterHorizontally).padding(bottom = 24.dp).clickable(onClick = onNavigationToSignUpScreen)) {
+                Row(
+                    modifier =
+                        Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .padding(bottom = 24.dp)
+                            .clickable(onClick = onNavigationToSignUpScreen),
+                ) {
                     Text(text = "Don't hava and account?")
                     Text(text = "Sign up", color = MaterialTheme.colorScheme.primary)
                 }
