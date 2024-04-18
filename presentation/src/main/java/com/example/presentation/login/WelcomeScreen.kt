@@ -17,7 +17,9 @@ import com.example.presentation.component.SubmitButton
 import com.example.presentation.ui.theme.SnsProjectTheme
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(
+    onNavigationToLoginScreen: () -> Unit
+) {
     Surface {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -39,7 +41,7 @@ fun WelcomeScreen() {
                         .padding(bottom = 24.dp)
                         .align(Alignment.BottomCenter),
                 text = "로그인",
-                onClick = {},
+                onClick = onNavigationToLoginScreen,
             )
         }
     }
@@ -49,6 +51,6 @@ fun WelcomeScreen() {
 @Composable
 private fun WelcomeScreenPreview() {
     SnsProjectTheme {
-        WelcomeScreen()
+        WelcomeScreen({})
     }
 }
