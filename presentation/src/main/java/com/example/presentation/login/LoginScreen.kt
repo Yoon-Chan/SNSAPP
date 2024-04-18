@@ -1,5 +1,7 @@
 package com.example.presentation.login
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,17 +23,27 @@ import com.example.presentation.component.LoginTextField
 import com.example.presentation.component.SubmitButton
 import com.example.presentation.ui.theme.SnsProjectTheme
 import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 fun LoginScreen(viewmodel: LoginViewModel = hiltViewModel()) {
     val state = viewmodel.collectAsState().value
+    val context = LocalContext.current
+    viewmodel.collectSideEffect { sideEffect ->
+        when (sideEffect) {
+            is LoginSideEffect.Toast -> {
+                Log.e("LoginScreen", "${sideEffect.message}")
+                Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
     LoginScreen(
         id = state.id,
         password = state.password,
         onIdChange = viewmodel::onChangeId,
         passwordChange = viewmodel::onChangePassword,
         onNavigationToSignUpScreen = { },
-        onLoginClick = viewmodel::onLoginClick
+        onLoginClick = viewmodel::onLoginClick,
     )
 }
 
@@ -41,7 +54,7 @@ fun LoginScreen(
     onIdChange: (String) -> Unit,
     passwordChange: (String) -> Unit,
     onNavigationToSignUpScreen: () -> Unit,
-    onLoginClick: () -> Unit
+    onLoginClick: () -> Unit,
 ) {
     Surface {
         Column(
@@ -55,19 +68,19 @@ fun LoginScreen(
                 Text(text = "Connected", style = MaterialTheme.typography.displaySmall)
                 Text(text = "Your favorite social network", style = MaterialTheme.typography.labelSmall)
             }
-            
+
             Column(
                 modifier =
-                Modifier
-                    .padding(top = 24.dp)
-                    .padding(horizontal = 16.dp),
+                    Modifier
+                        .padding(top = 24.dp)
+                        .padding(horizontal = 16.dp),
             ) {
                 Text(
                     modifier = Modifier.padding(36.dp),
                     text = "Log in",
                     style = MaterialTheme.typography.headlineMedium,
                 )
-                
+
                 Text(
                     modifier = Modifier.padding(16.dp),
                     text = "Id",
@@ -75,13 +88,13 @@ fun LoginScreen(
                 )
                 LoginTextField(
                     modifier =
-                    Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth(),
+                        Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth(),
                     value = id,
                     onValueString = onIdChange,
                 )
-                
+
                 Text(
                     modifier = Modifier.padding(16.dp),
                     text = "password",
@@ -89,30 +102,30 @@ fun LoginScreen(
                 )
                 LoginTextField(
                     modifier =
-                    Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth(),
+                        Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth(),
                     value = password,
                     visualTransformation = PasswordVisualTransformation(),
                     onValueString = passwordChange,
                 )
-                
+
                 SubmitButton(
                     modifier =
-                    Modifier
-                        .padding(top = 24.dp)
-                        .fillMaxWidth(),
+                        Modifier
+                            .padding(top = 24.dp)
+                            .fillMaxWidth(),
                     text = "로그인",
-                    onClick = {},
+                    onClick = onLoginClick,
                 )
-                
+
                 Spacer(modifier = Modifier.weight(1f))
                 Row(
                     modifier =
-                    Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(bottom = 24.dp)
-                        .clickable(onClick = onNavigationToSignUpScreen),
+                        Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .padding(bottom = 24.dp)
+                            .clickable(onClick = onNavigationToSignUpScreen),
                 ) {
                     Text(text = "Don't hava and account?")
                     Text(text = "Sign up", color = MaterialTheme.colorScheme.primary)

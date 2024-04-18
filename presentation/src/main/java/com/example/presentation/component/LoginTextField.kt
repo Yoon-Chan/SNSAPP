@@ -29,6 +29,6 @@ fun LoginTextField(
                 disabledIndicatorColor = Color.Transparent,
             ),
         shape = RoundedCornerShape(8.dp),
-        visualTransformation = visualTransformation
+        visualTransformation = visualTransformation,
     )
 }

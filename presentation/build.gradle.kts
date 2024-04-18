@@ -69,7 +69,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
     ksp(libs.dagger.compiler) // Dagger compiler
-    ksp(libs.hilt.compiler)   // Hilt compiler
+    ksp(libs.hilt.compiler) // Hilt compiler
     implementation(project(":domain"))
     implementation(libs.orbit.core)
     implementation(libs.orbit.viewmodel)
