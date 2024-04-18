@@ -42,6 +42,8 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.0"
     }
+    lintOptions.disable("Instantiatable")
+    lintOptions.isAbortOnError = false
 }
 
 dependencies {

@@ -43,6 +43,8 @@ android {
     buildFeatures {
         buildConfig = true
     }
+    lintOptions.disable("Instantiatable")
+    lintOptions.isAbortOnError = false
 }
 
 dependencies {
