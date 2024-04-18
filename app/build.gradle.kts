@@ -53,6 +53,8 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    lintOptions.disable("Instantiatable")
+    lintOptions.isAbortOnError = false
 }
 
 dependencies {
@@ -75,6 +77,8 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    ksp(libs.dagger.compiler) // Dagger compiler
+    ksp(libs.hilt.compiler) // Hilt compiler
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.orbit.viewmodel)

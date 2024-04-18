@@ -37,7 +37,10 @@ jobs:
                     cache: gradle
 
             - name: Run tests
-              run: ./gradlew test
+              run: |
+                echo sdk.dir=~/Android/Sdk >> local.properties
+                echo api_key=\"${{ secrets.API_KEY }}\" >> local.properties
+                ./gradlew test
 
             - name: Upload test report
               uses: actions/upload-artifact@v4
@@ -110,6 +113,7 @@ jobs:
             -   name: Grant execute permission for gradlew
                 run: |
                     echo sdk.dir=~/Android/Sdk >> local.properties
+                    echo api_key=\"${{ secrets.API_KEY }}\" >> local.properties
                     chmod +x gradlew
             -   name: Build with Gradle
                 run: |

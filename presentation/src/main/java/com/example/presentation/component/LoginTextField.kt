@@ -7,12 +7,14 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun LoginTextField(
     modifier: Modifier,
     value: String,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueString: (String) -> Unit,
 ) {
     TextField(
@@ -27,5 +29,6 @@ fun LoginTextField(
                 disabledIndicatorColor = Color.Transparent,
             ),
         shape = RoundedCornerShape(8.dp),
+        visualTransformation = visualTransformation,
     )
 }
