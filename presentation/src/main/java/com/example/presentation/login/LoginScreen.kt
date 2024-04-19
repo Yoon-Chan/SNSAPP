@@ -1,6 +1,6 @@
 package com.example.presentation.login
 
-import android.util.Log
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -19,6 +19,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.presentation.MainActivity
 import com.example.presentation.component.LoginTextField
 import com.example.presentation.component.SubmitButton
 import com.example.presentation.ui.theme.SnsProjectTheme
@@ -26,14 +27,27 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
-fun LoginScreen(viewmodel: LoginViewModel = hiltViewModel()) {
+fun LoginScreen(
+    viewmodel: LoginViewModel = hiltViewModel(),
+    onNavigationToSignUpScreen: () -> Unit,
+) {
     val state = viewmodel.collectAsState().value
     val context = LocalContext.current
     viewmodel.collectSideEffect { sideEffect ->
         when (sideEffect) {
             is LoginSideEffect.Toast -> {
-                Log.e("LoginScreen", "${sideEffect.message}")
+//                 Log.e("LoginScreen", "${sideEffect.message}")
                 Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
+            }
+            is LoginSideEffect.NavigateToMainActivity -> {
+                context.startActivity(
+                    Intent(
+                        context,
+                        MainActivity::class.java,
+                    ).apply {
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    },
+                )
             }
         }
     }
@@ -42,7 +56,7 @@ fun LoginScreen(viewmodel: LoginViewModel = hiltViewModel()) {
         password = state.password,
         onIdChange = viewmodel::onChangeId,
         passwordChange = viewmodel::onChangePassword,
-        onNavigationToSignUpScreen = { },
+        onNavigationToSignUpScreen = onNavigationToSignUpScreen,
         onLoginClick = viewmodel::onLoginClick,
     )
 }

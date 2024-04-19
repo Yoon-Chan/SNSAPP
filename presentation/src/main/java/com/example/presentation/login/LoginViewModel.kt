@@ -1,14 +1,15 @@
 package com.example.presentation.login
 
-import android.util.Log
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import com.example.domain.usecase.login.LoginUseCase
+import com.example.domain.usecase.login.SetTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -19,6 +20,7 @@ class LoginViewModel
     @Inject
     constructor(
         private val loginUseCase: LoginUseCase,
+        private val setTokenUseCase: SetTokenUseCase,
     ) : ViewModel(), ContainerHost<LoginState, LoginSideEffect> {
         override val container: Container<LoginState, LoginSideEffect> =
             container(
@@ -38,19 +40,21 @@ class LoginViewModel
                 val id = state.id
                 val pwd = state.password
                 val token: String = loginUseCase(id, pwd).getOrThrow()
-                Log.e("LoginViewModel", "$token")
-                postSideEffect(LoginSideEffect.Toast(message = "token = $token"))
+                setTokenUseCase(token)
+//                 Log.e("LoginViewModel", "$token")
+//                 postSideEffect(LoginSideEffect.Toast(message = "token = $token"))
+                postSideEffect(LoginSideEffect.NavigateToMainActivity)
             }
 
         fun onChangeId(id: String) =
-            intent {
+            blockingIntent {
                 reduce {
                     state.copy(id = id)
                 }
             }
 
         fun onChangePassword(password: String) =
-            intent {
+            blockingIntent {
                 reduce {
                     state.copy(password = password)
                 }
@@ -65,4 +69,6 @@ data class LoginState(
 
 sealed interface LoginSideEffect {
     class Toast(val message: String) : LoginSideEffect
+
+    data object NavigateToMainActivity : LoginSideEffect
 }
