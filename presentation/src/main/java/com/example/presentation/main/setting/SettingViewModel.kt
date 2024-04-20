@@ -16,48 +16,54 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 @HiltViewModel
-class SettingViewModel @Inject constructor(
-    private val clearTokenUseCase: ClearTokenUseCase,
-    private val getMyUserUseCase: GetMyUserUseCase,
-) : ViewModel(), ContainerHost<SettingState, SettingSideEffect> {
-    
-    override val container: Container<SettingState, SettingSideEffect> = container(
-        initialState = SettingState(),
-        buildSettings = {
-            this.exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-                intent { postSideEffect(SettingSideEffect.Toast(throwable.message ?: "")) }
-            }
-        }
-    )
-    
-    init {
-        load()
-    }
-    
-    private fun load() = intent {
-        val user = getMyUserUseCase().getOrThrow()
-        Log.e("SettingViewModel", "user : $user" )
-        reduce {
-            state.copy(
-                profileImageUrl = user.profileImageUrl,
-                username = user.username
+class SettingViewModel
+    @Inject
+    constructor(
+        private val clearTokenUseCase: ClearTokenUseCase,
+        private val getMyUserUseCase: GetMyUserUseCase,
+    ) : ViewModel(), ContainerHost<SettingState, SettingSideEffect> {
+        override val container: Container<SettingState, SettingSideEffect> =
+            container(
+                initialState = SettingState(),
+                buildSettings = {
+                    this.exceptionHandler =
+                        CoroutineExceptionHandler { _, throwable ->
+                            intent { postSideEffect(SettingSideEffect.Toast(throwable.message ?: "")) }
+                        }
+                },
             )
+
+        init {
+            load()
         }
+
+        private fun load() =
+            intent {
+                val user = getMyUserUseCase().getOrThrow()
+                Log.e("SettingViewModel", "user : $user")
+                reduce {
+                    state.copy(
+                        profileImageUrl = user.profileImageUrl,
+                        username = user.username,
+                    )
+                }
+            }
+
+        fun onLogoutClick() =
+            intent {
+                clearTokenUseCase().getOrThrow()
+                postSideEffect(SettingSideEffect.NavigateToLoginActivity)
+            }
     }
-    
-    fun onLogoutClick() = intent {
-        clearTokenUseCase().getOrThrow()
-        postSideEffect(SettingSideEffect.NavigateToLoginActivity)
-    }
-}
 
 @Immutable
 data class SettingState(
     val profileImageUrl: String? = null,
-    val username: String = ""
+    val username: String = "",
 )
 
 sealed interface SettingSideEffect {
     class Toast(val message: String) : SettingSideEffect
+
     data object NavigateToLoginActivity : SettingSideEffect
 }

@@ -29,8 +29,8 @@ fun MainNavHost() {
                     },
                 )
             },
-            content = {paddingValues ->
-                NavHost(modifier = Modifier.padding(paddingValues), navController = navController, startDestination = MainRoute.BOARD.route){
+            content = { paddingValues ->
+                NavHost(modifier = Modifier.padding(paddingValues), navController = navController, startDestination = MainRoute.BOARD.route) {
                     composable(route = MainRoute.BOARD.route) {
                         BoardScreen()
                     }
@@ -41,8 +41,7 @@ fun MainNavHost() {
             },
             bottomBar = {
                 MainBottomBar(navController = navController)
-            }
+            },
         )
     }
-    
 }

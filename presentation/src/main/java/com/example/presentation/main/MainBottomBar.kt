@@ -30,16 +30,17 @@ import com.example.presentation.ui.theme.SnsProjectTheme
 fun MainBottomBar(navController: NavController) {
     val context = LocalContext.current
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route?.let { currentRoute ->
-        MainRoute.entries.find { route -> currentRoute==route.route }
-    } ?: MainRoute.BOARD
-    
-    MainBottomBar(currentRoute = currentRoute, onItemClick = {newRoute ->
-        if(newRoute == MainRoute.WRITING) {
+    val currentRoute =
+        navBackStackEntry?.destination?.route?.let { currentRoute ->
+            MainRoute.entries.find { route -> currentRoute == route.route }
+        } ?: MainRoute.BOARD
+
+    MainBottomBar(currentRoute = currentRoute, onItemClick = { newRoute ->
+        if (newRoute == MainRoute.WRITING) {
             context.startActivity(
-                Intent(context, WritingActivity::class.java)
+                Intent(context, WritingActivity::class.java),
             )
-        }else {
+        } else {
             navController.navigate(route = newRoute.route) {
                 navController.graph.startDestinationRoute?.let {
                     popUpTo(it) {
@@ -56,33 +57,36 @@ fun MainBottomBar(navController: NavController) {
 @Composable
 private fun MainBottomBar(
     currentRoute: MainRoute,
-    onItemClick: (MainRoute) -> Unit
+    onItemClick: (MainRoute) -> Unit,
 ) {
     Column(
-        modifier = Modifier.background(MaterialTheme.colorScheme.primary)
+        modifier = Modifier.background(MaterialTheme.colorScheme.primary),
     ) {
         HorizontalDivider()
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
             MainRoute.entries.forEach { route ->
                 IconButton(onClick = { onItemClick(route) }) {
                     Icon(
                         imageVector = route.icon,
                         contentDescription = route.contentDescription,
-                        tint = if (currentRoute==route) {
-                            Color.Black
-                        } else {
-                            Color.White
-                        }
+                        tint =
+                            if (currentRoute == route) {
+                                Color.Black
+                            } else {
+                                Color.White
+                            },
                     )
                 }
             }
         }
     }
 }
-
 
 @Preview
 @Composable
@@ -91,10 +95,10 @@ private fun MainBottomBarPreview() {
         var currentRoute by remember {
             mutableStateOf(MainRoute.BOARD)
         }
-        
+
         MainBottomBar(
             currentRoute = currentRoute,
-            onItemClick = { newRoute -> currentRoute = newRoute}
+            onItemClick = { newRoute -> currentRoute = newRoute },
         )
     }
 }

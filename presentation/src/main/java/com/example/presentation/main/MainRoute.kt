@@ -9,9 +9,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 enum class MainRoute(
     val route: String,
     val contentDescription: String,
-    val icon: ImageVector
+    val icon: ImageVector,
 ) {
-    BOARD(route = "BoardScreen", contentDescription = "글목록",  icon = Icons.Default.Home),
-    WRITING(route = "WritingScreen", contentDescription = "글쓰기",  icon = Icons.Default.AddCircle),
-    SETTING(route = "SettingScreen", contentDescription = "내 정보",  icon = Icons.Default.AccountCircle)
+    BOARD(route = "BoardScreen", contentDescription = "글목록", icon = Icons.Default.Home),
+    WRITING(route = "WritingScreen", contentDescription = "글쓰기", icon = Icons.Default.AddCircle),
+    SETTING(route = "SettingScreen", contentDescription = "내 정보", icon = Icons.Default.AccountCircle),
 }

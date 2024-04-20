@@ -36,9 +36,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
-fun SettingScreen(
-    viewModel: SettingViewModel = hiltViewModel()
-) {
+fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
     val state = viewModel.collectAsState().value
     val context = LocalContext.current
     viewModel.collectSideEffect { sideEffect: SettingSideEffect ->
@@ -51,21 +49,20 @@ fun SettingScreen(
                 context.startActivity(
                     Intent(context, LoginActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    }
+                    },
                 )
             }
         }
     }
-    
+
     SettingScreen(
         username = state.username,
         profileImageUrl = state.profileImageUrl,
         onNameChangeClick = { },
-        onLogoutClick = viewModel::onLogoutClick ,
-        onImageChangeClick = { }
+        onLogoutClick = viewModel::onLogoutClick,
+        onImageChangeClick = { },
     )
 }
-
 
 @Composable
 fun SettingScreen(
@@ -73,58 +70,60 @@ fun SettingScreen(
     profileImageUrl: String?,
     onImageChangeClick: () -> Unit,
     onNameChangeClick: () -> Unit,
-    onLogoutClick: () -> Unit
+    onLogoutClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Box {
             ProfileImage(
                 modifier = Modifier.size(150.dp),
-                profileImageUrl = profileImageUrl
+                profileImageUrl = profileImageUrl,
             )
-            
+
             IconButton(
                 modifier = Modifier.align(Alignment.BottomEnd),
-                onClick = onImageChangeClick
+                onClick = onImageChangeClick,
             ) {
                 Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .border(width = 1.dp, color = Color.Gray, shape = CircleShape)
-                        .background(color = Color.White, shape = CircleShape)
+                    modifier =
+                        Modifier
+                            .size(30.dp)
+                            .border(width = 1.dp, color = Color.Gray, shape = CircleShape)
+                            .background(color = Color.White, shape = CircleShape),
                 ) {
                     Icon(
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .size(20.dp),
+                        modifier =
+                            Modifier
+                                .align(Alignment.Center)
+                                .size(20.dp),
                         imageVector = Icons.Default.Settings,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = MaterialTheme.colorScheme.primary,
                     )
                 }
             }
         }
         Text(
-            modifier = Modifier
-                .padding(top = 8.dp)
-                .clickable { onNameChangeClick() },
+            modifier =
+                Modifier
+                    .padding(top = 8.dp)
+                    .clickable { onNameChangeClick() },
             text = username,
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
-            color = Color.White
+            color = Color.White,
         )
         Button(
             modifier = Modifier.padding(top = 16.dp),
-            onClick = onLogoutClick
+            onClick = onLogoutClick,
         ) {
             Text(text = "로그아웃")
         }
     }
 }
-
 
 @Preview
 @Composable
@@ -135,7 +134,7 @@ private fun SettingScreenPreview() {
             profileImageUrl = null,
             onImageChangeClick = {},
             onLogoutClick = {},
-            onNameChangeClick = {}
+            onNameChangeClick = {},
         )
     }
 }
