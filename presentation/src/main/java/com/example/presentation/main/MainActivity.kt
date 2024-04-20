@@ -1,4 +1,4 @@
-package com.example.presentation
+package com.example.presentation.main
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SnsProjectTheme {
+                MainNavHost()
             }
         }
     }
