@@ -1,13 +1,16 @@
 package com.example.data.di
 
 import com.example.data.BuildConfig
+import com.example.data.retrofit.AddInterceptor
 import com.example.data.retrofit.UserService
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -16,9 +19,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitModule {
     
     @Provides
-    fun provideOkHttp(): OkHttpClient {
+    fun provideOkHttp(interceptor: AddInterceptor): OkHttpClient {
         return OkHttpClient
             .Builder()
+            .addInterceptor(interceptor)
             .build()
     }
     
