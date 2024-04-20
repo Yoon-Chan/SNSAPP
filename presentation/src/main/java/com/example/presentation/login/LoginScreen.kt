@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.presentation.MainActivity
+import com.example.presentation.main.MainActivity
 import com.example.presentation.component.LoginTextField
 import com.example.presentation.component.SubmitButton
 import com.example.presentation.ui.theme.SnsProjectTheme
