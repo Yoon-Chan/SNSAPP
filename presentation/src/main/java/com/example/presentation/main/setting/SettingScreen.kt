@@ -21,6 +21,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,6 +43,10 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
     val state = viewModel.collectAsState().value
     val context = LocalContext.current
+    
+    var usernameDialogVisible by remember {
+        mutableStateOf(false)
+    }
     viewModel.collectSideEffect { sideEffect: SettingSideEffect ->
         when (sideEffect) {
             is SettingSideEffect.Toast -> {
@@ -58,9 +66,16 @@ fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
     SettingScreen(
         username = state.username,
         profileImageUrl = state.profileImageUrl,
-        onNameChangeClick = { },
+        onNameChangeClick = { usernameDialogVisible = true },
         onLogoutClick = viewModel::onLogoutClick,
         onImageChangeClick = { },
+    )
+    
+    UsernameDialog(
+        visible = usernameDialogVisible,
+        initialUsername = state.username,
+        onDismissRequest = {usernameDialogVisible = false},
+        onUserNameChange = viewModel::onUsernameChange
     )
 }
 
@@ -89,16 +104,16 @@ fun SettingScreen(
             ) {
                 Box(
                     modifier =
-                        Modifier
-                            .size(30.dp)
-                            .border(width = 1.dp, color = Color.Gray, shape = CircleShape)
-                            .background(color = Color.White, shape = CircleShape),
+                    Modifier
+                        .size(30.dp)
+                        .border(width = 1.dp, color = Color.Gray, shape = CircleShape)
+                        .background(color = Color.White, shape = CircleShape),
                 ) {
                     Icon(
                         modifier =
-                            Modifier
-                                .align(Alignment.Center)
-                                .size(20.dp),
+                        Modifier
+                            .align(Alignment.Center)
+                            .size(20.dp),
                         imageVector = Icons.Default.Settings,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.primary,
@@ -108,9 +123,9 @@ fun SettingScreen(
         }
         Text(
             modifier =
-                Modifier
-                    .padding(top = 8.dp)
-                    .clickable { onNameChangeClick() },
+            Modifier
+                .padding(top = 8.dp)
+                .clickable { onNameChangeClick() },
             text = username,
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
