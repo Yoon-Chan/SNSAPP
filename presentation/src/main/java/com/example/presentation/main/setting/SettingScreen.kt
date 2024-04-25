@@ -3,6 +3,9 @@ package com.example.presentation.main.setting
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -21,6 +24,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,12 +46,17 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
     val state = viewModel.collectAsState().value
     val context = LocalContext.current
+
+    var usernameDialogVisible by remember {
+        mutableStateOf(false)
+    }
     viewModel.collectSideEffect { sideEffect: SettingSideEffect ->
         when (sideEffect) {
             is SettingSideEffect.Toast -> {
                 Log.e("SettingScreen", sideEffect.message)
                 Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
             }
+
             is SettingSideEffect.NavigateToLoginActivity -> {
                 context.startActivity(
                     Intent(context, LoginActivity::class.java).apply {
@@ -55,12 +67,28 @@ fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
         }
     }
 
+    val visualMediaPickerLauncher =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia()) {
+            viewModel.onImageChange(it)
+        }
+
     SettingScreen(
         username = state.username,
         profileImageUrl = state.profileImageUrl,
-        onNameChangeClick = { },
+        onNameChangeClick = { usernameDialogVisible = true },
         onLogoutClick = viewModel::onLogoutClick,
-        onImageChangeClick = { },
+        onImageChangeClick = {
+            visualMediaPickerLauncher.launch(
+                PickVisualMediaRequest(mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly),
+            )
+        },
+    )
+
+    UsernameDialog(
+        visible = usernameDialogVisible,
+        initialUsername = state.username,
+        onDismissRequest = { usernameDialogVisible = false },
+        onUserNameChange = viewModel::onUsernameChange,
     )
 }
 
