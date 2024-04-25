@@ -1,7 +1,10 @@
 package com.example.presentation.main.setting
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.LocalTextStyle
@@ -14,11 +17,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.window.SecureFlagPolicy
 import com.example.presentation.ui.theme.SnsProjectTheme
 
 @Composable
@@ -33,7 +39,9 @@ fun UsernameDialog(
         var username by remember {
             mutableStateOf(initialUsername)
         }
-        Dialog(onDismissRequest = onDismissRequest) {
+        Dialog(
+            onDismissRequest = onDismissRequest,
+        ) {
             Surface {
                 Column(modifier = Modifier.fillMaxWidth(0.8f)) {
                     TextField(
@@ -43,7 +51,7 @@ fun UsernameDialog(
                         onValueChange = { username = it },
                         textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Center),
                         
-                    )
+                        )
                     
                     Row {
                         TextButton(
@@ -62,6 +70,8 @@ fun UsernameDialog(
                         }
                     }
                 }
+                
+                
             }
         }
     }

@@ -2,6 +2,7 @@ package com.example.data.di
 
 import com.example.data.BuildConfig
 import com.example.data.retrofit.AddInterceptor
+import com.example.data.retrofit.FileService
 import com.example.data.retrofit.UserService
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -40,5 +41,8 @@ class RetrofitModule {
     
     @Provides
     fun provideUserService(retrofit: Retrofit): UserService = retrofit.create(UserService::class.java)
+    
+    @Provides
+    fun provideFileService(retrofit: Retrofit): FileService = retrofit.create(FileService::class.java)
     
 }

@@ -6,14 +6,16 @@ import com.example.data.usecase.LoginUseCaseImpl
 import com.example.data.usecase.SetTokenUseCaseImpl
 import com.example.data.usecase.SignUpUseCaseImpl
 import com.example.data.usecase.main.setting.GetMyUserUseCaseImpl
-import com.example.data.usecase.main.setting.UpdateMyNameUseCaseImpl
+import com.example.data.usecase.main.setting.SetMyUserUseCaseImpl
+import com.example.data.usecase.main.setting.SetProfileImageUseCaseImpl
 import com.example.domain.usecase.login.ClearTokenUseCase
 import com.example.domain.usecase.login.GetTokenUseCase
 import com.example.domain.usecase.login.LoginUseCase
 import com.example.domain.usecase.login.SetTokenUseCase
 import com.example.domain.usecase.login.SignUpUseCase
 import com.example.domain.usecase.main.setting.GetMyUserUseCase
-import com.example.domain.usecase.main.setting.UpdateMyNameUseCase
+import com.example.domain.usecase.main.setting.SetMyUserUseCase
+import com.example.domain.usecase.main.setting.SetProfileImageUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -42,5 +44,9 @@ abstract class UserModule {
     abstract fun bindGetMyUserUseCase(getMyUserUseCaseImpl: GetMyUserUseCaseImpl) : GetMyUserUseCase
     
     @Binds
-    abstract fun bindGetMyNameInfoUserUseCase(getMyNameUseCaseImpl: UpdateMyNameUseCaseImpl) : UpdateMyNameUseCase
+    abstract fun bindGetMyNameInfoUserUseCase(getMyNameUseCaseImpl: SetMyUserUseCaseImpl) : SetMyUserUseCase
+    
+    @Binds
+    abstract fun bindSetProfileImageUseCase(setProfileImageUseCaseImpl: SetProfileImageUseCaseImpl) : SetProfileImageUseCase
+    
 }

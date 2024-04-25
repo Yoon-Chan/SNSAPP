@@ -3,6 +3,10 @@ package com.example.presentation.main.setting
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -53,6 +57,7 @@ fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
                 Log.e("SettingScreen", sideEffect.message)
                 Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
             }
+            
             is SettingSideEffect.NavigateToLoginActivity -> {
                 context.startActivity(
                     Intent(context, LoginActivity::class.java).apply {
@@ -62,19 +67,27 @@ fun SettingScreen(viewModel: SettingViewModel = hiltViewModel()) {
             }
         }
     }
-
+    
+    val visualMediaPickerLauncher = rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia()) {
+        viewModel.onImageChange(it)
+    }
+    
     SettingScreen(
         username = state.username,
         profileImageUrl = state.profileImageUrl,
         onNameChangeClick = { usernameDialogVisible = true },
         onLogoutClick = viewModel::onLogoutClick,
-        onImageChangeClick = { },
+        onImageChangeClick = {
+            visualMediaPickerLauncher.launch(
+                PickVisualMediaRequest(mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly)
+            )
+        },
     )
     
     UsernameDialog(
         visible = usernameDialogVisible,
         initialUsername = state.username,
-        onDismissRequest = {usernameDialogVisible = false},
+        onDismissRequest = { usernameDialogVisible = false },
         onUserNameChange = viewModel::onUsernameChange
     )
 }
@@ -97,7 +110,7 @@ fun SettingScreen(
                 modifier = Modifier.size(150.dp),
                 profileImageUrl = profileImageUrl,
             )
-
+            
             IconButton(
                 modifier = Modifier.align(Alignment.BottomEnd),
                 onClick = onImageChangeClick,
