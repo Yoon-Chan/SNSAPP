@@ -51,10 +51,9 @@ class WritingViewModel
         fun onItemClick(image: Image) =
             intent {
                 reduce {
-                    if (state.selectedImages.contains(image))
-                        {
-                            state.copy(selectedImages = state.selectedImages - image)
-                        } else {
+                    if (state.selectedImages.contains(image)) {
+                        state.copy(selectedImages = state.selectedImages - image)
+                    } else {
                         state.copy(selectedImages = state.selectedImages + image)
                     }
                 }
