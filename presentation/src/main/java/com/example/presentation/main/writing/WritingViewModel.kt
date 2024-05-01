@@ -9,6 +9,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -58,12 +59,27 @@ class WritingViewModel
                     }
                 }
             }
+
+        fun onTextChange(text: String) =
+            blockingIntent {
+                reduce {
+                    state.copy(text = text)
+                }
+            }
+
+        fun onPostClick() =
+            intent {
+//         val writingState = state
+//
+                // TODO: 업로드 기능 구현
+            }
     }
 
 @Immutable
 data class WritingState(
     val selectedImages: List<Image> = listOf(),
     val images: List<Image> = listOf(),
+    val text: String = "",
 )
 
 sealed interface WritingSideEffect {

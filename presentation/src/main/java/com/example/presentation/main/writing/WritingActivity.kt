@@ -13,7 +13,7 @@ class WritingActivity : AppCompatActivity() {
 
         setContent {
             SnsProjectTheme {
-                WritingNavHost()
+                WritingNavHost(onFinish = { finish() })
             }
         }
     }
