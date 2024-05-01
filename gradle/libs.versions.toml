@@ -1,6 +1,7 @@
 [versions]
 activity-compose = "1.8.2"
 androidx-junit = "1.1.5"
+androidx-paging-compose = "3.2.1"
 appcompat = "1.6.1"
 coil-compose = "2.6.0"
 constraintlayout = "2.1.4"
@@ -49,6 +50,7 @@ androidx-lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", 
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 androidx-paging-common = { module = "androidx.paging:paging-common", version.ref = "paging-runtime" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging-compose" }
+androidx-paging-compose-v321 = { module = "androidx.paging:paging-compose", version.ref = "androidx-paging-compose" }
 androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging-runtime" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room-runtime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room-runtime" }
