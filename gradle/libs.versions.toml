@@ -45,6 +45,7 @@ androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", vers
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+androidx-lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.ref = "lifecycle-runtime-ktx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 androidx-paging-common = { module = "androidx.paging:paging-common", version.ref = "paging-runtime" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging-compose" }
