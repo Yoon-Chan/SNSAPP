@@ -40,8 +40,8 @@ import org.orbitmvi.orbit.compose.collectAsState
 fun ImageSelectScreen(
     viewModel: WritingViewModel,
     onBackClick: () -> Unit,
-    onNextClick: () -> Unit
-    ) {
+    onNextClick: () -> Unit,
+) {
     val state = viewModel.collectAsState().value
 
     ImageSelectScreen(

@@ -17,67 +17,69 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @HiltViewModel
 class WritingViewModel
-@Inject
-constructor(
-    private val getImageListUseCase: GetImageListUseCase,
-) : ViewModel(), ContainerHost<WritingState, WritingSideEffect> {
-    override val container: Container<WritingState, WritingSideEffect> =
-        container(
-            initialState = WritingState(),
-            buildSettings = {
-                this.exceptionHandler =
-                    CoroutineExceptionHandler { _, throwable ->
-                        intent {
-                            postSideEffect(WritingSideEffect.Toast(throwable.message.orEmpty()))
+    @Inject
+    constructor(
+        private val getImageListUseCase: GetImageListUseCase,
+    ) : ViewModel(), ContainerHost<WritingState, WritingSideEffect> {
+        override val container: Container<WritingState, WritingSideEffect> =
+            container(
+                initialState = WritingState(),
+                buildSettings = {
+                    this.exceptionHandler =
+                        CoroutineExceptionHandler { _, throwable ->
+                            intent {
+                                postSideEffect(WritingSideEffect.Toast(throwable.message.orEmpty()))
+                            }
                         }
-                    }
-            },
-        )
-    
-    init {
-        load()
-    }
-    
-    private fun load() =
-        intent {
-            val images = getImageListUseCase()
-            reduce {
-                state.copy(
-                    selectedImages = images.firstOrNull()?.let { listOf(it) } ?: listOf(),
-                    images = images,
-                )
-            }
+                },
+            )
+
+        init {
+            load()
         }
-    
-    fun onItemClick(image: Image) =
-        intent {
-            reduce {
-                if (state.selectedImages.contains(image)) {
-                    state.copy(selectedImages = state.selectedImages - image)
-                } else {
-                    state.copy(selectedImages = state.selectedImages + image)
+
+        private fun load() =
+            intent {
+                val images = getImageListUseCase()
+                reduce {
+                    state.copy(
+                        selectedImages = images.firstOrNull()?.let { listOf(it) } ?: listOf(),
+                        images = images,
+                    )
                 }
             }
-        }
-    
-    fun onTextChange(text: String) = blockingIntent {
-        reduce {
-            state.copy(text = text)
-        }
-    }
-    
-    fun onPostClick() = intent {
+
+        fun onItemClick(image: Image) =
+            intent {
+                reduce {
+                    if (state.selectedImages.contains(image)) {
+                        state.copy(selectedImages = state.selectedImages - image)
+                    } else {
+                        state.copy(selectedImages = state.selectedImages + image)
+                    }
+                }
+            }
+
+        fun onTextChange(text: String) =
+            blockingIntent {
+                reduce {
+                    state.copy(text = text)
+                }
+            }
+
+        fun onPostClick() =
+            intent {
 //         val writingState = state
 //
-        //TODO: 업로드 기능 구현
+                // TODO: 업로드 기능 구현
+            }
     }
-}
 
 @Immutable
 data class WritingState(
     val selectedImages: List<Image> = listOf(),
     val images: List<Image> = listOf(),
-    val text: String = ""
+    val text: String = "",
 )
 
 sealed interface WritingSideEffect {

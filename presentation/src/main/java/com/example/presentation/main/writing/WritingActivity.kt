@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class WritingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         setContent {
             SnsProjectTheme {
                 WritingNavHost(onFinish = { finish() })

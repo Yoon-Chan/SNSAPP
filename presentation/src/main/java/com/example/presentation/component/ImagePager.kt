@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,31 +33,33 @@ fun ImagePager(
         modifier = modifier,
     ) {
         HorizontalPager(
-            state = pagerState) { index ->
+            state = pagerState,
+        ) { index ->
             val image = images[index]
             Image(
                 modifier = Modifier.fillMaxSize(),
                 painter = rememberAsyncImagePainter(model = image),
                 contentDescription = "",
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
             )
         }
-        
-        Box(modifier = Modifier
-            .align(Alignment.TopEnd)
-            .padding(8.dp)
-            .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(8.dp))) {
+
+        Box(
+            modifier =
+                Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(8.dp)
+                    .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(8.dp)),
+        ) {
             Text(
                 modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp),
                 text = "${pagerState.currentPage + 1} / ${images.size}",
                 style = MaterialTheme.typography.labelSmall,
-                color = Color.White
+                color = Color.White,
             )
         }
     }
-    
 }
-
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
@@ -68,9 +69,10 @@ private fun ImagePagerPreview() {
         ImagePager(
             modifier = Modifier,
             images = listOf(),
-            pagerState = rememberPagerState(
-                pageCount = { 10 }
-            )
+            pagerState =
+                rememberPagerState(
+                    pageCount = { 10 },
+                ),
         )
     }
 }

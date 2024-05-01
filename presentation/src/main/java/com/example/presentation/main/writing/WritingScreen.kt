@@ -35,11 +35,12 @@ fun WritingScreen(
     onPostClick: () -> Unit,
 ) {
     val state = viewModel.collectAsState().value
-    val pageState = rememberPagerState(
-        initialPage = 0,
-        pageCount = { state.images.size },
-    )
-    
+    val pageState =
+        rememberPagerState(
+            initialPage = 0,
+            pageCount = { state.images.size },
+        )
+
     WritingScreen(
         images = state.images.map { it.uri },
         text = state.text,
@@ -58,46 +59,54 @@ fun WritingScreen(
     text: String,
     onTextChange: (String) -> Unit,
     onBackClick: () -> Unit,
-    onPostClick: () -> Unit
+    onPostClick: () -> Unit,
 ) {
     Surface {
         Scaffold(
             topBar =
-            {
-                CenterAlignedTopAppBar(
-                    title = {
-                        Text(text = "새 게시물", style = MaterialTheme.typography.headlineSmall)
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onBackClick) {
-                            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "뒤로가기")
-                        }
-                    },
-                    actions = {
-                        TextButton(onClick = onPostClick) {
-                            Text(text = "다음", style = MaterialTheme.typography.bodyMedium, color = Color.Black)
-                        }
-                    },
-                )
-            },
+                {
+                    CenterAlignedTopAppBar(
+                        title = {
+                            Text(text = "새 게시물", style = MaterialTheme.typography.headlineSmall)
+                        },
+                        navigationIcon = {
+                            IconButton(onClick = onBackClick) {
+                                Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "뒤로가기")
+                            }
+                        },
+                        actions = {
+                            TextButton(onClick = onPostClick) {
+                                Text(text = "다음", style = MaterialTheme.typography.bodyMedium, color = Color.Black)
+                            }
+                        },
+                    )
+                },
             content = { paddingValues ->
                 Column(modifier = Modifier.padding(paddingValues)) {
-                    ImagePager(modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(2f), images = images, pagerState = pagerState)
-                    
+                    ImagePager(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .weight(2f),
+                        images = images,
+                        pagerState = pagerState,
+                    )
+
                     HorizontalDivider()
-                    
-                    LoginTextField(modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(3f), value = text, onValueString = onTextChange)
+
+                    LoginTextField(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .weight(3f),
+                        value = text,
+                        onValueString = onTextChange,
+                    )
                 }
             },
-            
-            )
+        )
     }
 }
-
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
@@ -110,7 +119,7 @@ private fun WritingScreenPreview() {
             onTextChange = {},
             pagerState = rememberPagerState(pageCount = { 10 }),
             onBackClick = {},
-            onPostClick = {}
+            onPostClick = {},
         )
     }
 }
