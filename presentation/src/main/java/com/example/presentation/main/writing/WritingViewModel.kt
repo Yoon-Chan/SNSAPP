@@ -18,70 +18,69 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @HiltViewModel
 class WritingViewModel
-@Inject
-constructor(
-    private val getImageListUseCase: GetImageListUseCase,
-    private val postBoardUseCase: PostBoardUseCase,
-    
+    @Inject
+    constructor(
+        private val getImageListUseCase: GetImageListUseCase,
+        private val postBoardUseCase: PostBoardUseCase,
     ) : ViewModel(), ContainerHost<WritingState, WritingSideEffect> {
-    override val container: Container<WritingState, WritingSideEffect> =
-        container(
-            initialState = WritingState(),
-            buildSettings = {
-                this.exceptionHandler =
-                    CoroutineExceptionHandler { _, throwable ->
-                        intent {
-                            postSideEffect(WritingSideEffect.Toast(throwable.message.orEmpty()))
+        override val container: Container<WritingState, WritingSideEffect> =
+            container(
+                initialState = WritingState(),
+                buildSettings = {
+                    this.exceptionHandler =
+                        CoroutineExceptionHandler { _, throwable ->
+                            intent {
+                                postSideEffect(WritingSideEffect.Toast(throwable.message.orEmpty()))
+                            }
                         }
-                    }
-            },
-        )
-    
-    init {
-        load()
-    }
-    
-    private fun load() =
-        intent {
-            val images = getImageListUseCase()
-            reduce {
-                state.copy(
-                    selectedImages = images.firstOrNull()?.let { listOf(it) } ?: listOf(),
-                    images = images,
-                )
-            }
+                },
+            )
+
+        init {
+            load()
         }
-    
-    fun onItemClick(image: Image) =
-        intent {
-            reduce {
-                if (state.selectedImages.contains(image)) {
-                    state.copy(selectedImages = state.selectedImages - image)
-                } else {
-                    state.copy(selectedImages = state.selectedImages + image)
+
+        private fun load() =
+            intent {
+                val images = getImageListUseCase()
+                reduce {
+                    state.copy(
+                        selectedImages = images.firstOrNull()?.let { listOf(it) } ?: listOf(),
+                        images = images,
+                    )
                 }
             }
-        }
-    
-    fun onTextChange(text: String) =
-        blockingIntent {
-            reduce {
-                state.copy(text = text)
+
+        fun onItemClick(image: Image) =
+            intent {
+                reduce {
+                    if (state.selectedImages.contains(image)) {
+                        state.copy(selectedImages = state.selectedImages - image)
+                    } else {
+                        state.copy(selectedImages = state.selectedImages + image)
+                    }
+                }
             }
-        }
-    
-    fun onPostClick() =
-        intent {
+
+        fun onTextChange(text: String) =
+            blockingIntent {
+                reduce {
+                    state.copy(text = text)
+                }
+            }
+
+        fun onPostClick() =
+            intent {
 //         val writingState = state
-            
-            postBoardUseCase(
-                title = "제목없음",
-                content = state.text,
-                images = state.selectedImages
-            )
-            postSideEffect(WritingSideEffect.Finish)
-        }
-}
+
+                postBoardUseCase(
+                    title = "제목없음",
+                    content = state.text,
+                    images = state.selectedImages,
+                )
+                postSideEffect(WritingSideEffect.Finish)
+            }
+    }
 
 @Immutable
 data class WritingState(
@@ -92,5 +91,6 @@ data class WritingState(
 
 sealed interface WritingSideEffect {
     class Toast(val message: String) : WritingSideEffect
+
     data object Finish : WritingSideEffect
 }

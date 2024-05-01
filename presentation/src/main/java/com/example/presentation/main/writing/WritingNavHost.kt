@@ -14,9 +14,9 @@ fun WritingNavHost(onFinish: () -> Unit) {
     val context = LocalContext.current
     val navController = rememberNavController()
     val sharedViewModel: WritingViewModel = viewModel()
-    
-    sharedViewModel.collectSideEffect {sideEffect ->
-        when(sideEffect) {
+
+    sharedViewModel.collectSideEffect { sideEffect ->
+        when (sideEffect) {
             is WritingSideEffect.Finish -> onFinish()
             is WritingSideEffect.Toast ->
                 Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()

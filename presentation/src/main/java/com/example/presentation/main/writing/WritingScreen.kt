@@ -40,8 +40,6 @@ fun WritingScreen(
             initialPage = 0,
             pageCount = { state.images.size },
         )
-    
-    
 
     WritingScreen(
         images = state.images.map { it.uri },
