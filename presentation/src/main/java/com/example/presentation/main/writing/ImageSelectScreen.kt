@@ -37,14 +37,18 @@ import com.example.presentation.ui.theme.SnsProjectTheme
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
-fun ImageSelectScreen(viewModel: WritingViewModel) {
+fun ImageSelectScreen(
+    viewModel: WritingViewModel,
+    onBackClick: () -> Unit,
+    onNextClick: () -> Unit
+    ) {
     val state = viewModel.collectAsState().value
 
     ImageSelectScreen(
         selectImages = state.selectedImages,
         images = state.images,
-        onBackClick = {},
-        onNextClick = {},
+        onBackClick = onBackClick,
+        onNextClick = onNextClick,
         onItemClick = viewModel::onItemClick,
     )
 }
