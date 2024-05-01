@@ -5,6 +5,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     alias(libs.plugins.kotlin.serialization)
     id("com.google.devtools.ksp")
+    id ("kotlin-parcelize")
+    id("com.google.dagger.hilt.android")
 }
 
 val properties = Properties()
@@ -72,4 +74,7 @@ dependencies {
     
     //datastore
     implementation(libs.androidx.datastore.preferences)
+    
+    //lifecycle service
+    implementation(libs.androidx.lifecycle.service)
 }

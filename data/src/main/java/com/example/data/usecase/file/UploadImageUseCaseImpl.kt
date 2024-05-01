@@ -1,5 +1,6 @@
 package com.example.data.usecase.file
 
+import com.example.data.BuildConfig
 import com.example.data.retrofit.FileService
 import com.example.data.retrofit.UriRequestBody
 import com.example.domain.model.Image
@@ -31,7 +32,7 @@ class UploadImageUseCaseImpl @Inject constructor(
             image.name,
             requestBody
         )
-        fileService.uploadFile(
+        "${ BuildConfig.api_key}/"+fileService.uploadFile(
             fileNamePart,
             filePart
         ).data.filePath
