@@ -28,7 +28,7 @@ class SetProfileImageUseCaseImpl @Inject constructor(
         // 4. 내 정보 업데이트
         setMyUserUseCase(
             userName = user.username,
-            profileImageUrl = "${BuildConfig.api_key}/${imagePath}"
+            profileImageUrl = imagePath
         ).getOrThrow()
         
     }
