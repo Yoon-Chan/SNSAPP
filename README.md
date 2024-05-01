@@ -12,6 +12,7 @@
 + Okhttp
 + datastore
 + ktlint
++ Paging3
 
 ### 2. 아키텍처
 + MVI 아키텍처
