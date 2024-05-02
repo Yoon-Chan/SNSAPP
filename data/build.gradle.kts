@@ -77,4 +77,7 @@ dependencies {
     
     //lifecycle service
     implementation(libs.androidx.lifecycle.service)
+    
+    //paging3
+    implementation (libs.androidx.paging.runtime)
 }

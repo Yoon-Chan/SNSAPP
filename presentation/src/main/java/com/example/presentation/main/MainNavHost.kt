@@ -14,11 +14,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.presentation.R
 import com.example.presentation.main.board.BoardScreen
+import com.example.presentation.main.board.BoardViewModel
 import com.example.presentation.main.setting.SettingScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainNavHost() {
+fun MainNavHost(boardViewModel: BoardViewModel) {
     val navController = rememberNavController()
     Surface {
         Scaffold(
@@ -32,7 +33,7 @@ fun MainNavHost() {
             content = { paddingValues ->
                 NavHost(modifier = Modifier.padding(paddingValues), navController = navController, startDestination = MainRoute.BOARD.route) {
                     composable(route = MainRoute.BOARD.route) {
-                        BoardScreen()
+                        BoardScreen(boardViewModel)
                     }
                     composable(route = MainRoute.SETTING.route) {
                         SettingScreen()

@@ -55,5 +55,10 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.converter.gson)
+    
+    //paging3
+    implementation (libs.androidx.paging.runtime)
+    testImplementation (libs.androidx.paging.common)
+    implementation (libs.androidx.paging.compose.v321)
 
 }
