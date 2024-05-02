@@ -1,7 +1,6 @@
 package com.example.presentation.main.setting
 
 import android.net.Uri
-import android.util.Log
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import com.example.domain.usecase.login.ClearTokenUseCase

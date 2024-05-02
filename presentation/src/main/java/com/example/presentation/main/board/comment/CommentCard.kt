@@ -26,19 +26,20 @@ fun CommentCard(
     profileImageUrl: String? = null,
     username: String = "",
     text: String = "",
-    onDeleteComment: () -> Unit
+    onDeleteComment: () -> Unit,
 ) {
     Surface {
         Row(
-            modifier = modifier
-                .padding(vertical = 8.dp)
-                .padding(start = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                modifier
+                    .padding(vertical = 8.dp)
+                    .padding(start = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             ProfileImage(
                 modifier = Modifier.size(28.dp),
                 profileImageUrl = profileImageUrl,
-                borderWidth = 0.7.dp
+                borderWidth = 0.7.dp,
             )
             Spacer(modifier = Modifier.width(8.dp))
             Column {
@@ -50,16 +51,12 @@ fun CommentCard(
                 Icon(
                     modifier = Modifier.size(16.dp),
                     imageVector = Icons.Default.Clear,
-                    contentDescription = "삭제"
+                    contentDescription = "삭제",
                 )
             }
         }
-        
     }
-    
-    
 }
-
 
 @Preview
 @Composable
@@ -69,7 +66,7 @@ private fun CommentCardPreview() {
             profileImageUrl = null,
             username = "username",
             text = "텍스트",
-            onDeleteComment = {}
+            onDeleteComment = {},
         )
     }
 }

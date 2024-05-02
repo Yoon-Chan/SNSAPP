@@ -1,6 +1,5 @@
 package com.example.presentation.main.board
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import androidx.paging.map
@@ -25,54 +24,53 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @HiltViewModel
 class BoardViewModel
-@Inject
-constructor(
-    private val getBoardUseCase: GetBoardUseCase,
-    private val deleteBoardUseCase: DeleteBoardUseCase,
-) : ViewModel(), ContainerHost<BoardState, BoardSideEffect> {
-    override val container: Container<BoardState, BoardSideEffect> =
-        container(
-            initialState = BoardState(),
-            buildSettings = {
-                this.exceptionHandler =
-                    CoroutineExceptionHandler { _, throwable ->
-                        intent {
-                            postSideEffect(BoardSideEffect.Toast(throwable.message ?: ""))
+    @Inject
+    constructor(
+        private val getBoardUseCase: GetBoardUseCase,
+        private val deleteBoardUseCase: DeleteBoardUseCase,
+    ) : ViewModel(), ContainerHost<BoardState, BoardSideEffect> {
+        override val container: Container<BoardState, BoardSideEffect> =
+            container(
+                initialState = BoardState(),
+                buildSettings = {
+                    this.exceptionHandler =
+                        CoroutineExceptionHandler { _, throwable ->
+                            intent {
+                                postSideEffect(BoardSideEffect.Toast(throwable.message ?: ""))
+                            }
                         }
+                },
+            )
+
+        init {
+            load()
+        }
+
+        fun load() =
+            intent {
+                val boardFlow = getBoardUseCase().getOrThrow()
+                val boardCardModelFlow =
+                    boardFlow.map { value: PagingData<Board> ->
+                        value.map { board -> board.toUiModel() }
                     }
-            },
-        )
-    
-    init {
-        load()
-    }
-    
-    fun load() =
-        intent {
-            val boardFlow = getBoardUseCase().getOrThrow()
-            val boardCardModelFlow =
-                boardFlow.map { value: PagingData<Board> ->
-                    value.map { board -> board.toUiModel() }
+                reduce {
+                    state.copy(boardCardModelFLow = boardCardModelFlow)
                 }
-            reduce {
-                state.copy(boardCardModelFLow = boardCardModelFlow)
             }
-        }
-    
-    fun onBoardDelete(boardCardModel: BoardCardModel) =
-        intent {
-            deleteBoardUseCase(boardCardModel.boardId).getOrThrow()
-            reduce {
-                state.copy(
-                    deletedBoardIds = state.deletedBoardIds + boardCardModel.boardId,
-                )
+
+        fun onBoardDelete(boardCardModel: BoardCardModel) =
+            intent {
+                deleteBoardUseCase(boardCardModel.boardId).getOrThrow()
+                reduce {
+                    state.copy(
+                        deletedBoardIds = state.deletedBoardIds + boardCardModel.boardId,
+                    )
+                }
             }
+
+        fun onDeleteComment(comment: Comment) {
         }
-    
-    fun onDeleteComment(comment: Comment) {
-        
     }
-}
 
 data class BoardState(
     val boardCardModelFLow: Flow<PagingData<BoardCardModel>> = emptyFlow(),

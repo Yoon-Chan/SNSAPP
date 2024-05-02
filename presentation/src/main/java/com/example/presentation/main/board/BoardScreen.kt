@@ -1,6 +1,5 @@
 package com.example.presentation.main.board
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -34,7 +33,7 @@ fun BoardScreen(viewModel: BoardViewModel) {
             is BoardSideEffect.Toast -> Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
         }
     }
-    
+
     BoardScreen(
         boardCardModel = items,
         onOptionClick = {
@@ -42,7 +41,7 @@ fun BoardScreen(viewModel: BoardViewModel) {
         },
         deletedBoardIds = state.deletedBoardIds,
         onRelyClick = {},
-        onDeleteComment = viewModel::onDeleteComment
+        onDeleteComment = viewModel::onDeleteComment,
     )
     BoardOptionDialog(
         boardCardModel = modelForDialog,
@@ -57,7 +56,7 @@ fun BoardScreen(
     deletedBoardIds: Set<Long>,
     onOptionClick: (BoardCardModel) -> Unit,
     onRelyClick: (BoardCardModel) -> Unit,
-    onDeleteComment:(Comment) -> Unit
+    onDeleteComment: (Comment) -> Unit,
 ) {
     Surface {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -74,7 +73,7 @@ fun BoardScreen(
                                 onOptionClick(this)
                             },
                             commentList = comments,
-                            onDeleteComment = onDeleteComment
+                            onDeleteComment = onDeleteComment,
                         )
                     }
                 }

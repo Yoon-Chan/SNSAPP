@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,45 +39,46 @@ fun CommentDialog(
     onCloseClick: () -> Unit,
     onSendClick: () -> Unit,
     comments: List<Comment>,
-    onDeleteComment: (Comment) -> Unit
+    onDeleteComment: (Comment) -> Unit,
 ) {
     var text by remember {
         mutableStateOf("")
     }
-    
+
     Dialog(
         onDismissRequest = onDismissRequest,
-        properties = DialogProperties(
-            usePlatformDefaultWidth = false
-        )
+        properties =
+            DialogProperties(
+                usePlatformDefaultWidth = false,
+            ),
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.BottomCenter
+            contentAlignment = Alignment.BottomCenter,
         ) {
             Surface(
                 color = MaterialTheme.colorScheme.primaryContainer,
-                shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+                shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp),
             ) {
                 Column(
-                    modifier = Modifier.fillMaxHeight(0.5f)
+                    modifier = Modifier.fillMaxHeight(0.5f),
                 ) {
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
                             modifier = Modifier.padding(horizontal = 16.dp),
-                            text = "댓글"
+                            text = "댓글",
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         IconButton(onClick = onCloseClick) {
                             Icon(
                                 imageVector = Icons.Filled.Close,
-                                contentDescription = "닫기"
+                                contentDescription = "닫기",
                             )
                         }
                     }
-                    
+
                     LazyColumn(
                         modifier = Modifier.weight(1f),
                     ) {
@@ -93,20 +93,20 @@ fun CommentDialog(
                                 text = comment.text,
                                 onDeleteComment = {
                                     onDeleteComment(comment)
-                                }
+                                },
                             )
                         }
                     }
                     HorizontalDivider()
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         LoginTextField(
                             modifier = Modifier.weight(1f),
                             value = text,
-                            onValueString = { text = it }
+                            onValueString = { text = it },
                         )
-                        
+
                         IconButton(onClick = onSendClick) {
                             Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = "전송")
                         }
@@ -114,10 +114,8 @@ fun CommentDialog(
                 }
             }
         }
-        
     }
 }
-
 
 @Preview
 @Composable
@@ -128,7 +126,7 @@ private fun CommentDialogPreview() {
             onCloseClick = {},
             onDismissRequest = {},
             comments = listOf(),
-            onDeleteComment = {}
+            onDeleteComment = {},
         )
     }
 }
