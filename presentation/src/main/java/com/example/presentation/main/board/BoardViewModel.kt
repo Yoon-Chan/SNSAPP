@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.domain.model.Board
+import com.example.domain.usecase.main.board.DeleteBoardUseCase
 import com.example.domain.usecase.main.board.GetBoardUseCase
 import com.example.presentation.model.BoardCardModel
 import com.example.presentation.model.toUiModel
@@ -22,7 +23,8 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @HiltViewModel
 class BoardViewModel @Inject constructor(
-    private val getBoardUseCase: GetBoardUseCase
+    private val getBoardUseCase: GetBoardUseCase,
+    private val deleteBoardUseCase: DeleteBoardUseCase
 ): ViewModel(), ContainerHost<BoardState, BoardSideEffect> {
     
     override val container: Container<BoardState, BoardSideEffect> = container(
@@ -30,7 +32,7 @@ class BoardViewModel @Inject constructor(
         buildSettings = {
             this.exceptionHandler = CoroutineExceptionHandler { _, throwable ->
                 intent {
-                    postSideEffect(BoardSideEffect.Toast(throwable.message.orEmpty()))
+                    postSideEffect(BoardSideEffect.Toast(throwable.message ?: ""))
                 }
             }
         }
@@ -49,6 +51,11 @@ class BoardViewModel @Inject constructor(
             state.copy(boardCardModelFLow = boardCardModelFlow)
         }
     }
+    
+    fun onBoardDelete(boardCardModel : BoardCardModel) = intent {
+        deleteBoardUseCase(boardCardModel.boardId).getOrThrow()
+        load()
+    }
 }
 
 data class BoardState(
@@ -56,5 +63,5 @@ data class BoardState(
 )
 
 sealed interface BoardSideEffect {
-    class Toast(message: String): BoardSideEffect
+    class Toast(val message: String): BoardSideEffect
 }
