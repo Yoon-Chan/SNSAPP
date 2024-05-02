@@ -2,6 +2,7 @@ package com.example.presentation.model
 
 import androidx.compose.runtime.Immutable
 import com.example.domain.model.Board
+import com.example.domain.model.Comment
 
 @Immutable
 data class BoardCardModel(
@@ -9,6 +10,7 @@ data class BoardCardModel(
     val images: List<String>,
     val username: String,
     val text: String,
+    val comments: List<Comment>,
 )
 
 fun Board.toUiModel(): BoardCardModel {
@@ -17,5 +19,6 @@ fun Board.toUiModel(): BoardCardModel {
         username = this.username,
         images = this.images,
         text = this.content,
+        comments = this.comments,
     )
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.domain.model.Board
+import com.example.domain.model.Comment
 import com.example.domain.usecase.main.board.DeleteBoardUseCase
 import com.example.domain.usecase.main.board.GetBoardUseCase
 import com.example.presentation.model.BoardCardModel
@@ -66,6 +67,9 @@ class BoardViewModel
                     )
                 }
             }
+
+        fun onDeleteComment(comment: Comment) {
+        }
     }
 
 data class BoardState(

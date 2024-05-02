@@ -23,7 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.domain.model.Comment
 import com.example.presentation.component.ImagePager
+import com.example.presentation.main.board.comment.CommentDialog
 import com.example.presentation.ui.theme.SnsProjectTheme
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -34,8 +36,13 @@ fun BoardCard(
     images: List<String>,
     text: String,
     onOptionClick: () -> Unit,
-    onReplyClick: () -> Unit,
+    commentList: List<Comment>,
+    onDeleteComment: (Comment) -> Unit,
 ) {
+    var commentDialogVisible by remember {
+        mutableStateOf(false)
+    }
+
     Surface {
         val pagerState =
             rememberPagerState(
@@ -59,7 +66,10 @@ fun BoardCard(
             // ImagePager
             if (images.isNotEmpty()) {
                 ImagePager(
-                    modifier = Modifier.fillMaxWidth().aspectRatio(1f),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1f),
                     images = images,
                     pagerState = pagerState,
                 )
@@ -101,9 +111,19 @@ fun BoardCard(
                         .padding(top = 8.dp)
                         .padding(horizontal = 8.dp)
                         .align(Alignment.End),
-                onClick = onReplyClick,
+                onClick = { commentDialogVisible = true },
             ) {
                 Text(text = "댓글")
+            }
+
+            if (commentDialogVisible) {
+                CommentDialog(
+                    onDismissRequest = { commentDialogVisible = false },
+                    comments = commentList,
+                    onCloseClick = { commentDialogVisible = false },
+                    onSendClick = {},
+                    onDeleteComment = onDeleteComment,
+                )
             }
         }
     }
@@ -119,7 +139,8 @@ private fun BoardCardPreview() {
             images = listOf(),
             text = "내용\n내용\n내용\n내용\n내용\n내용\n내용\n내용\n12312312내용\n내용\n12313",
             onOptionClick = {},
-            onReplyClick = {},
+            commentList = listOf(),
+            onDeleteComment = {},
         )
     }
 }

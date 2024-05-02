@@ -21,6 +21,9 @@ data class BoardDTO(
     val createUserName: String,
     @SerializedName("createUserProfileFilePath")
     val createUserProfileFilePath: String,
+    @SerializedName("commentList")
+    val commentList: List<CommentDTO>
+
 ) {
     
     fun toDomainModel(): Board {
@@ -32,7 +35,8 @@ data class BoardDTO(
             profileImageUrl = this.createUserProfileFilePath,
             content = contentParam.text,
             userId = this.createUserId,
-            images = contentParam.images
+            images = contentParam.images,
+            comments = this.commentList.map { it.toDomainModel() }
         )
     }
 }
