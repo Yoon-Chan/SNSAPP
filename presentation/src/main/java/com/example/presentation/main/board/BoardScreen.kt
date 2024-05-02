@@ -12,7 +12,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.presentation.model.BoardCardModel
@@ -21,36 +20,32 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
-fun BoardScreen(
-    viewModel : BoardViewModel
-) {
+fun BoardScreen(viewModel: BoardViewModel) {
     val state = viewModel.collectAsState().value
     val items = state.boardCardModelFLow.collectAsLazyPagingItems()
     val context = LocalContext.current
-    
     var modelForDialog by remember {
         mutableStateOf<BoardCardModel?>(null)
     }
-    
-    viewModel.collectSideEffect {sideEffect ->
-        when(sideEffect) {
+    viewModel.collectSideEffect { sideEffect ->
+        when (sideEffect) {
             is BoardSideEffect.Toast -> Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
         }
     }
-    
+
     BoardScreen(
         boardCardModel = items,
         onOptionClick = {
-                        modelForDialog = it
+            modelForDialog = it
         },
         deletedBoardIds = state.deletedBoardIds,
-        onRelyClick = {}
+        onRelyClick = {},
     )
     BoardOptionDialog(
         boardCardModel = modelForDialog,
         onDismissRequest = { modelForDialog = null },
-        onBoardDelete = viewModel::onBoardDelete
-        )
+        onBoardDelete = viewModel::onBoardDelete,
+    )
 }
 
 @Composable
@@ -58,7 +53,7 @@ fun BoardScreen(
     boardCardModel: LazyPagingItems<BoardCardModel>,
     deletedBoardIds: Set<Long>,
     onOptionClick: (BoardCardModel) -> Unit,
-    onRelyClick: (BoardCardModel) -> Unit
+    onRelyClick: (BoardCardModel) -> Unit,
 ) {
     Surface {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -66,7 +61,7 @@ fun BoardScreen(
                 boardCardModel[it]?.boardId ?: it
             }) { index ->
                 boardCardModel[index]?.run {
-                    if(!deletedBoardIds.contains(this.boardId)){
+                    if (!deletedBoardIds.contains(this.boardId)) {
                         BoardCard(
                             username = username,
                             images = images,
@@ -74,7 +69,7 @@ fun BoardScreen(
                             onOptionClick = {
                                 onOptionClick(this)
                             },
-                            onReplyClick = { onRelyClick(this) }
+                            onReplyClick = { onRelyClick(this) },
                         )
                     }
                 }

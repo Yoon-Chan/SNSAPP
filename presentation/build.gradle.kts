@@ -80,7 +80,7 @@ dependencies {
 
     // coil
     implementation(libs.coil.compose)
-    
-    //paging3
-    implementation (libs.androidx.paging.compose.v321)
+
+    // paging3
+    implementation(libs.androidx.paging.compose.v321)
 }

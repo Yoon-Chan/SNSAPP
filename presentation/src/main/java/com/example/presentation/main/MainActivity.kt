@@ -16,19 +16,21 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    
-    
-    private val receiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            intent?.let {
-                if(it.action == ACTION_POSTED){
-                    boardViewModel.load()
+    private val receiver =
+        object : BroadcastReceiver() {
+            override fun onReceive(
+                context: Context?,
+                intent: Intent?,
+            ) {
+                intent?.let {
+                    if (it.action == ACTION_POSTED) {
+                        boardViewModel.load()
+                    }
                 }
             }
         }
-    }
-    
-    private val boardViewModel : BoardViewModel by viewModels()
+    private val boardViewModel: BoardViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -36,13 +38,12 @@ class MainActivity : AppCompatActivity() {
                 MainNavHost(boardViewModel)
             }
         }
-        
+
         ContextCompat.registerReceiver(
             this,
             receiver,
             IntentFilter(ACTION_POSTED),
-            ContextCompat.RECEIVER_NOT_EXPORTED
+            ContextCompat.RECEIVER_NOT_EXPORTED,
         )
     }
-    
 }

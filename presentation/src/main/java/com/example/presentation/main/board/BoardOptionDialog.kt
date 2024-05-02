@@ -2,11 +2,9 @@ package com.example.presentation.main.board
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -25,15 +23,14 @@ import com.example.presentation.ui.theme.SnsProjectTheme
 fun BoardOptionDialog(
     boardCardModel: BoardCardModel?,
     onDismissRequest: () -> Unit,
-    onBoardDelete: (BoardCardModel) -> Unit
+    onBoardDelete: (BoardCardModel) -> Unit,
 ) {
-    if (boardCardModel!=null) {
+    if (boardCardModel != null) {
         Dialog(onDismissRequest = onDismissRequest) {
-            
             Column(
                 modifier = Modifier,
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 TextButton(
                     modifier = Modifier.fillMaxWidth(0.8f),
@@ -41,15 +38,15 @@ fun BoardOptionDialog(
                         onBoardDelete(boardCardModel)
                         onDismissRequest()
                     },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                        contentColor = MaterialTheme.colorScheme.secondary
-                    )
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.secondary,
+                        ),
                 ) {
                     Text(text = "삭제")
                 }
             }
-            
         }
     }
 }
@@ -64,7 +61,7 @@ private fun BoardOptionDialogPreview() {
         BoardOptionDialog(
             boardCardModel = null,
             onDismissRequest = { visible = false },
-            onBoardDelete = {}
+            onBoardDelete = {},
         )
     }
 }

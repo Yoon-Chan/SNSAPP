@@ -25,25 +25,25 @@ fun BoardHeader(
     modifier: Modifier,
     profileImageUrl: String? = null,
     username: String,
-    onOptionClick: () -> Unit
+    onOptionClick: () -> Unit,
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         ProfileImage(modifier = Modifier.padding(start = 8.dp).size(36.dp), profileImageUrl = profileImageUrl, borderWidth = 1.dp)
-        
+
         Text(
             modifier = Modifier.padding(horizontal = 8.dp),
             text = username,
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleMedium,
         )
-        
+
         Spacer(modifier = Modifier.weight(1f))
         IconButton(onClick = onOptionClick) {
             Icon(
                 imageVector = Icons.Filled.MoreVert,
-                contentDescription = "옵션"
+                contentDescription = "옵션",
             )
         }
     }
@@ -53,12 +53,12 @@ fun BoardHeader(
 @Composable
 private fun BoardHeaderPreview() {
     SnsProjectTheme {
-        Surface(color = Color.Gray){
+        Surface(color = Color.Gray) {
             BoardHeader(
                 Modifier,
                 null,
                 "이름",
-                {}
+                {},
             )
         }
     }

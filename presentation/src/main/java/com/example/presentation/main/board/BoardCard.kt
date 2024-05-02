@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.domain.model.Image
 import com.example.presentation.component.ImagePager
 import com.example.presentation.ui.theme.SnsProjectTheme
 
@@ -35,31 +34,34 @@ fun BoardCard(
     images: List<String>,
     text: String,
     onOptionClick: () -> Unit,
-    onReplyClick: () -> Unit
+    onReplyClick: () -> Unit,
 ) {
     Surface {
-        val pagerState = rememberPagerState(
-            pageCount = { images.size }
-        )
-        
+        val pagerState =
+            rememberPagerState(
+                pageCount = { images.size },
+            )
+
         Column(
-            modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .fillMaxWidth()
-                .background(color = MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(16.dp))
+            modifier =
+                Modifier
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .fillMaxWidth()
+                    .background(color = MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(16.dp)),
         ) {
-            //Header
+            // Header
             BoardHeader(
                 modifier = Modifier.fillMaxWidth(),
                 profileImageUrl = profileImageUrl,
                 username = username,
-                onOptionClick = onOptionClick)
-            //ImagePager
+                onOptionClick = onOptionClick,
+            )
+            // ImagePager
             if (images.isNotEmpty()) {
                 ImagePager(
                     modifier = Modifier.fillMaxWidth().aspectRatio(1f),
                     images = images,
-                    pagerState = pagerState
+                    pagerState = pagerState,
                 )
             }
             var maxLines by remember {
@@ -68,40 +70,42 @@ fun BoardCard(
             var showMore by remember {
                 mutableStateOf(false)
             }
-            //content
+            // content
             Text(
-                modifier = Modifier
-                    .padding(top = 4.dp)
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
+                modifier =
+                    Modifier
+                        .padding(top = 4.dp)
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp),
                 text = text,
                 maxLines = maxLines,
                 overflow = TextOverflow.Ellipsis,
                 onTextLayout = { textLayoutResult ->
                     showMore = textLayoutResult.didOverflowHeight
-                }
+                },
             )
-            
+
             if (showMore) {
                 TextButton(onClick = { maxLines = Int.MAX_VALUE }) {
                     Text(
                         text = "더보기",
-                        style = MaterialTheme.typography.labelLarge)
+                        style = MaterialTheme.typography.labelLarge,
+                    )
                 }
             }
-            
-            
-            //comment
+
+            // comment
             TextButton(
-                modifier = Modifier
-                    .padding(top = 8.dp)
-                    .padding(horizontal = 8.dp)
-                    .align(Alignment.End),
-                onClick = onReplyClick) {
+                modifier =
+                    Modifier
+                        .padding(top = 8.dp)
+                        .padding(horizontal = 8.dp)
+                        .align(Alignment.End),
+                onClick = onReplyClick,
+            ) {
                 Text(text = "댓글")
             }
         }
-        
     }
 }
 
@@ -115,7 +119,7 @@ private fun BoardCardPreview() {
             images = listOf(),
             text = "내용\n내용\n내용\n내용\n내용\n내용\n내용\n내용\n12312312내용\n내용\n12313",
             onOptionClick = {},
-            onReplyClick = {}
+            onReplyClick = {},
         )
     }
 }
