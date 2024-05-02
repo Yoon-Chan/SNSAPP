@@ -31,7 +31,7 @@ fun WritingNavHost(onFinish: () -> Unit) {
         }
 
         composable(WritingRoute.WRITING_SCREEN.route) {
-            WritingScreen(viewModel = sharedViewModel, onBackClick = { navController.navigateUp() }, onPostClick = {})
+            WritingScreen(viewModel = sharedViewModel, onBackClick = { navController.navigateUp() })
         }
     }
 }

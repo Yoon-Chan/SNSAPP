@@ -32,17 +32,16 @@ import org.orbitmvi.orbit.compose.collectAsState
 fun WritingScreen(
     viewModel: WritingViewModel,
     onBackClick: () -> Unit,
-    onPostClick: () -> Unit,
 ) {
     val state = viewModel.collectAsState().value
     val pageState =
         rememberPagerState(
             initialPage = 0,
-            pageCount = { state.images.size },
+            pageCount = { state.selectedImages.size },
         )
 
     WritingScreen(
-        images = state.images.map { it.uri },
+        images = state.selectedImages.map { it.uri },
         text = state.text,
         onTextChange = viewModel::onTextChange,
         pagerState = pageState,

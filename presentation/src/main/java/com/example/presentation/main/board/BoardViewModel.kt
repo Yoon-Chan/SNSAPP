@@ -1,8 +1,12 @@
 package com.example.presentation.main.board
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.example.domain.model.ACTION_POSTED
 import com.example.domain.model.Board
 import com.example.domain.usecase.main.board.DeleteBoardUseCase
 import com.example.domain.usecase.main.board.GetBoardUseCase
@@ -42,7 +46,7 @@ class BoardViewModel @Inject constructor(
         load()
     }
     
-    private fun load() = intent {
+    fun load() = intent {
         val boardFlow = getBoardUseCase().getOrThrow()
         val boardCardModelFlow = boardFlow.map { value: PagingData<Board> ->
             value.map { board ->  board.toUiModel() }
@@ -54,12 +58,17 @@ class BoardViewModel @Inject constructor(
     
     fun onBoardDelete(boardCardModel : BoardCardModel) = intent {
         deleteBoardUseCase(boardCardModel.boardId).getOrThrow()
-        load()
+        reduce {
+            state.copy(
+                deletedBoardIds = state.deletedBoardIds + boardCardModel.boardId
+            )
+        }
     }
 }
 
 data class BoardState(
-    val boardCardModelFLow: Flow<PagingData<BoardCardModel>> = emptyFlow()
+    val boardCardModelFLow: Flow<PagingData<BoardCardModel>> = emptyFlow(),
+    val deletedBoardIds: Set<Long> = emptySet()
 )
 
 sealed interface BoardSideEffect {
