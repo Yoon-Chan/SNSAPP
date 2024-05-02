@@ -7,5 +7,6 @@ data class Board(
     val images: List<String> = listOf(),
     val userId: Long,
     val username: String,
-    val profileImageUrl: String
+    val profileImageUrl: String,
+    val comments: List<Comment>
 )

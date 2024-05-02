@@ -1,5 +1,6 @@
 package com.example.presentation.main.board
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.domain.model.Comment
 import com.example.presentation.model.BoardCardModel
 import com.example.presentation.ui.theme.SnsProjectTheme
 import org.orbitmvi.orbit.compose.collectAsState
@@ -32,7 +34,7 @@ fun BoardScreen(viewModel: BoardViewModel) {
             is BoardSideEffect.Toast -> Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
         }
     }
-
+    
     BoardScreen(
         boardCardModel = items,
         onOptionClick = {
@@ -40,6 +42,7 @@ fun BoardScreen(viewModel: BoardViewModel) {
         },
         deletedBoardIds = state.deletedBoardIds,
         onRelyClick = {},
+        onDeleteComment = viewModel::onDeleteComment
     )
     BoardOptionDialog(
         boardCardModel = modelForDialog,
@@ -54,6 +57,7 @@ fun BoardScreen(
     deletedBoardIds: Set<Long>,
     onOptionClick: (BoardCardModel) -> Unit,
     onRelyClick: (BoardCardModel) -> Unit,
+    onDeleteComment:(Comment) -> Unit
 ) {
     Surface {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -69,7 +73,8 @@ fun BoardScreen(
                             onOptionClick = {
                                 onOptionClick(this)
                             },
-                            onReplyClick = { onRelyClick(this) },
+                            commentList = comments,
+                            onDeleteComment = onDeleteComment
                         )
                     }
                 }

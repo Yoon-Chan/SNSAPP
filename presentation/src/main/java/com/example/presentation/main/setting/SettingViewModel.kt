@@ -45,7 +45,6 @@ class SettingViewModel
         private fun load() =
             intent {
                 val user = getMyUserUseCase().getOrThrow()
-                Log.e("SettingViewModel", "user : $user")
                 reduce {
                     state.copy(
                         profileImageUrl = user.profileImageUrl,

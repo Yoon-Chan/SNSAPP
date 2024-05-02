@@ -11,7 +11,6 @@ class GetMyUserUseCaseImpl @Inject constructor(
 ) : GetMyUserUseCase {
     override suspend fun invoke(): Result<User> = runCatching {
         val userDto = userService.getMyPage().data
-        Log.e("GetMyUserUseCaseImpl", "userDto: $userDto")
         userDto.toUser()
     }
 }
