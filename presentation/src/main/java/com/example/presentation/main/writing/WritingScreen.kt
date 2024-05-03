@@ -20,11 +20,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.presentation.component.ImagePager
-import com.example.presentation.component.LoginTextField
+import com.example.presentation.main.writing.toolbar.WritingToolbar
 import com.example.presentation.ui.theme.SnsProjectTheme
+import com.mohamedrejeb.richeditor.model.RichTextState
+import com.mohamedrejeb.richeditor.model.rememberRichTextState
+import com.mohamedrejeb.richeditor.ui.BasicRichTextEditor
 import org.orbitmvi.orbit.compose.collectAsState
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -41,9 +46,8 @@ fun WritingScreen(
         )
 
     WritingScreen(
+        richTextState = state.richTextState,
         images = state.selectedImages.map { it.uri },
-        text = state.text,
-        onTextChange = viewModel::onTextChange,
         pagerState = pageState,
         onBackClick = onBackClick,
         onPostClick = viewModel::onPostClick,
@@ -53,10 +57,9 @@ fun WritingScreen(
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun WritingScreen(
+    richTextState: RichTextState,
     images: List<String>,
     pagerState: PagerState,
-    text: String,
-    onTextChange: (String) -> Unit,
     onBackClick: () -> Unit,
     onPostClick: () -> Unit,
 ) {
@@ -93,15 +96,31 @@ fun WritingScreen(
 
                     HorizontalDivider()
 
-                    LoginTextField(
+                    BasicRichTextEditor(
                         modifier =
                             Modifier
                                 .fillMaxWidth()
                                 .weight(3f),
-                        value = text,
-                        onValueString = onTextChange,
+                        state = richTextState,
+                        cursorBrush = SolidColor(Color.Black),
+                        textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.Black),
+                        decorationBox = { innerTextField ->
+                            if (richTextState.annotatedString.isEmpty()) {
+                                Text(
+                                    modifier = Modifier.alpha(0.5f),
+                                    text = "문구를 입력해 주세요.",
+                                )
+                            }
+                            innerTextField()
+                        },
                     )
                 }
+            },
+            bottomBar = {
+                WritingToolbar(
+                    modifier = Modifier.fillMaxWidth(),
+                    richTextState = richTextState,
+                )
             },
         )
     }
@@ -113,9 +132,8 @@ fun WritingScreen(
 private fun WritingScreenPreview() {
     SnsProjectTheme {
         WritingScreen(
+            richTextState = rememberRichTextState(),
             images = listOf(),
-            text = "",
-            onTextChange = {},
             pagerState = rememberPagerState(pageCount = { 10 }),
             onBackClick = {},
             onPostClick = {},
