@@ -23,12 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.presentation.component.ImagePager
-import com.example.presentation.component.LoginTextField
 import com.example.presentation.main.writing.toolbar.WritingToolbar
-import com.example.presentation.main.writing.toolbar.WritingToolbarType
 import com.example.presentation.ui.theme.SnsProjectTheme
 import com.mohamedrejeb.richeditor.model.RichTextState
 import com.mohamedrejeb.richeditor.model.rememberRichTextState
@@ -47,7 +44,7 @@ fun WritingScreen(
             initialPage = 0,
             pageCount = { state.selectedImages.size },
         )
-    
+
     WritingScreen(
         richTextState = state.richTextState,
         images = state.selectedImages.map { it.uri },
@@ -69,40 +66,41 @@ fun WritingScreen(
     Surface {
         Scaffold(
             topBar =
-            {
-                CenterAlignedTopAppBar(
-                    title = {
-                        Text(text = "새 게시물", style = MaterialTheme.typography.headlineSmall)
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onBackClick) {
-                            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "뒤로가기")
-                        }
-                    },
-                    actions = {
-                        TextButton(onClick = onPostClick) {
-                            Text(text = "다음", style = MaterialTheme.typography.bodyMedium, color = Color.Black)
-                        }
-                    },
-                )
-            },
+                {
+                    CenterAlignedTopAppBar(
+                        title = {
+                            Text(text = "새 게시물", style = MaterialTheme.typography.headlineSmall)
+                        },
+                        navigationIcon = {
+                            IconButton(onClick = onBackClick) {
+                                Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "뒤로가기")
+                            }
+                        },
+                        actions = {
+                            TextButton(onClick = onPostClick) {
+                                Text(text = "다음", style = MaterialTheme.typography.bodyMedium, color = Color.Black)
+                            }
+                        },
+                    )
+                },
             content = { paddingValues ->
                 Column(modifier = Modifier.padding(paddingValues)) {
                     ImagePager(
                         modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .weight(2f),
+                            Modifier
+                                .fillMaxWidth()
+                                .weight(2f),
                         images = images,
                         pagerState = pagerState,
                     )
-                    
+
                     HorizontalDivider()
-                    
+
                     BasicRichTextEditor(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(3f),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .weight(3f),
                         state = richTextState,
                         cursorBrush = SolidColor(Color.Black),
                         textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.Black),
@@ -110,21 +108,20 @@ fun WritingScreen(
                             if (richTextState.annotatedString.isEmpty()) {
                                 Text(
                                     modifier = Modifier.alpha(0.5f),
-                                    text = "문구를 입력해 주세요."
+                                    text = "문구를 입력해 주세요.",
                                 )
                             }
                             innerTextField()
                         },
                     )
-                    
                 }
             },
             bottomBar = {
                 WritingToolbar(
                     modifier = Modifier.fillMaxWidth(),
-                    richTextState = richTextState
+                    richTextState = richTextState,
                 )
-            }
+            },
         )
     }
 }

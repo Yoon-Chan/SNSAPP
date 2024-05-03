@@ -76,7 +76,7 @@ fun BoardScreen(
                             boardId = boardId,
                             username = username,
                             images = images,
-                            richTextState= richTextState,
+                            richTextState = richTextState,
                             commentList = comments + addedComments[boardId].orEmpty() - deletedComment[boardId].orEmpty().toSet(),
                             onOptionClick = {
                                 onOptionClick(this)

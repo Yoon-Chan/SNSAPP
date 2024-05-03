@@ -9,6 +9,5 @@ enum class WritingToolbarType(
     BOLD(R.drawable.bold),
     ITALIC(R.drawable.italic),
     UNDERLINE(R.drawable.underline),
-    STRIKETHROUGH(R.drawable.strikethrough)
+    STRIKETHROUGH(R.drawable.strikethrough),
 }
-

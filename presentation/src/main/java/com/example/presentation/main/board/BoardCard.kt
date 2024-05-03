@@ -59,10 +59,10 @@ fun BoardCard(
 
         Column(
             modifier =
-            Modifier
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .fillMaxWidth()
-                .background(color = MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(16.dp)),
+                Modifier
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .fillMaxWidth()
+                    .background(color = MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(16.dp)),
         ) {
             // Header
             BoardHeader(
@@ -76,9 +76,9 @@ fun BoardCard(
             if (images.isNotEmpty()) {
                 ImagePager(
                     modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f),
+                        Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1f),
                     images = images,
                     pagerState = pagerState,
                 )
@@ -92,21 +92,22 @@ fun BoardCard(
             // content
             BasicRichText(
                 modifier =
-                Modifier
-                    .padding(top = 4.dp)
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
+                    Modifier
+                        .padding(top = 4.dp)
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp),
                 maxLines = maxLines,
                 overflow = TextOverflow.Ellipsis,
                 onTextLayout = { textLayoutResult ->
                     showMore = textLayoutResult.didOverflowHeight
                 },
                 state = richTextState,
-                style = TextStyle.Default.copy(
-                    color = Color.Black
-                )
+                style =
+                    TextStyle.Default.copy(
+                        color = Color.Black,
+                    ),
             )
-            
+
             if (showMore) {
                 TextButton(onClick = { maxLines = Int.MAX_VALUE }) {
                     Text(
@@ -119,10 +120,10 @@ fun BoardCard(
             // comment
             TextButton(
                 modifier =
-                Modifier
-                    .padding(top = 8.dp)
-                    .padding(horizontal = 8.dp)
-                    .align(Alignment.End),
+                    Modifier
+                        .padding(top = 8.dp)
+                        .padding(horizontal = 8.dp)
+                        .align(Alignment.End),
                 onClick = { commentDialogVisible = true },
             ) {
                 Text(text = "댓글")
