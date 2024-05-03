@@ -35,11 +35,13 @@ fun BoardScreen(viewModel: BoardViewModel) {
     }
 
     BoardScreen(
+        userId = state.myUserId,
         boardCardModel = items,
         onOptionClick = {
             modelForDialog = it
         },
         addedComments= state.addedComments,
+        deletedComment = state.deletedComment,
         deletedBoardIds = state.deletedBoardIds,
         onDeleteComment = viewModel::onDeleteComment,
         onCommentSend= viewModel::onCommentSend
@@ -53,11 +55,13 @@ fun BoardScreen(viewModel: BoardViewModel) {
 
 @Composable
 fun BoardScreen(
+    userId: Long,
     boardCardModel: LazyPagingItems<BoardCardModel>,
     deletedBoardIds: Set<Long>,
     addedComments: Map<Long, List<Comment>>,
+    deletedComment: Map<Long, List<Comment>>,
     onOptionClick: (BoardCardModel) -> Unit,
-    onDeleteComment: (Comment) -> Unit,
+    onDeleteComment: (Long ,Comment) -> Unit,
     onCommentSend: (Long, String) -> Unit
 ) {
     Surface {
@@ -68,11 +72,12 @@ fun BoardScreen(
                 boardCardModel[index]?.run {
                     if (!deletedBoardIds.contains(this.boardId)) {
                         BoardCard(
+                            isMine= userId == this.userId,
                             boardId = boardId,
                             username = username,
                             images = images,
                             text = text,
-                            commentList = comments + addedComments[boardId].orEmpty(),
+                            commentList = comments + addedComments[boardId].orEmpty() - deletedComment[boardId].orEmpty().toSet(),
                             onOptionClick = {
                                 onOptionClick(this)
                             },

@@ -22,6 +22,7 @@ import com.example.presentation.ui.theme.SnsProjectTheme
 
 @Composable
 fun BoardHeader(
+    isMine: Boolean,
     modifier: Modifier,
     profileImageUrl: String? = null,
     username: String,
@@ -31,7 +32,9 @@ fun BoardHeader(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        ProfileImage(modifier = Modifier.padding(start = 8.dp).size(36.dp), profileImageUrl = profileImageUrl, borderWidth = 1.dp)
+        ProfileImage(modifier = Modifier
+            .padding(start = 8.dp)
+            .size(36.dp), profileImageUrl = profileImageUrl, borderWidth = 1.dp)
 
         Text(
             modifier = Modifier.padding(horizontal = 8.dp),
@@ -40,11 +43,13 @@ fun BoardHeader(
         )
 
         Spacer(modifier = Modifier.weight(1f))
-        IconButton(onClick = onOptionClick) {
-            Icon(
-                imageVector = Icons.Filled.MoreVert,
-                contentDescription = "옵션",
-            )
+        if(isMine){
+            IconButton(onClick = onOptionClick) {
+                Icon(
+                    imageVector = Icons.Filled.MoreVert,
+                    contentDescription = "옵션",
+                )
+            }
         }
     }
 }
@@ -55,6 +60,7 @@ private fun BoardHeaderPreview() {
     SnsProjectTheme {
         Surface(color = Color.Gray) {
             BoardHeader(
+                isMine = true,
                 Modifier,
                 null,
                 "이름",

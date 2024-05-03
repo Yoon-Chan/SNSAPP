@@ -6,6 +6,7 @@ import androidx.paging.map
 import com.example.domain.model.Board
 import com.example.domain.model.Comment
 import com.example.domain.usecase.main.board.DeleteBoardUseCase
+import com.example.domain.usecase.main.board.DeleteCommentUseCase
 import com.example.domain.usecase.main.board.GetBoardUseCase
 import com.example.domain.usecase.main.board.PostCommentUseCase
 import com.example.domain.usecase.main.setting.GetMyUserUseCase
@@ -31,7 +32,8 @@ constructor(
     private val getMyUserUseCase: GetMyUserUseCase,
     private val getBoardUseCase: GetBoardUseCase,
     private val deleteBoardUseCase: DeleteBoardUseCase,
-    private val postCommentUseCase: PostCommentUseCase
+    private val postCommentUseCase: PostCommentUseCase,
+    private val deleteCommentUseCase: DeleteCommentUseCase
 ) : ViewModel(), ContainerHost<BoardState, BoardSideEffect> {
     override val container: Container<BoardState, BoardSideEffect> =
         container(
@@ -52,13 +54,17 @@ constructor(
     
     fun load() =
         intent {
+            val myUser = getMyUserUseCase().getOrThrow()
             val boardFlow = getBoardUseCase().getOrThrow()
             val boardCardModelFlow =
                 boardFlow.map { value: PagingData<Board> ->
                     value.map { board -> board.toUiModel() }
                 }
             reduce {
-                state.copy(boardCardModelFLow = boardCardModelFlow)
+                state.copy(
+                    myUserId = myUser.id,
+                    boardCardModelFLow = boardCardModelFlow
+                )
             }
         }
     
@@ -93,14 +99,29 @@ constructor(
             )
         }
     }
-    fun onDeleteComment(comment: Comment) {
+    
+    fun onDeleteComment(boardId: Long, comment: Comment) = intent {
+        val deletedCommentId = deleteCommentUseCase(boardId, comment.id).getOrThrow()
+        
+        val newDeletedComment = state.deletedComment + Pair(
+            boardId,
+            state.deletedComment[boardId].orEmpty() + comment
+        )
+        
+        reduce {
+            state.copy(
+                deletedComment = newDeletedComment
+            )
+        }
     }
 }
 
 data class BoardState(
+    val myUserId: Long = 1,
     val boardCardModelFLow: Flow<PagingData<BoardCardModel>> = emptyFlow(),
     val deletedBoardIds: Set<Long> = emptySet(),
-    val addedComments:Map<Long, List<Comment>> = emptyMap()
+    val addedComments: Map<Long, List<Comment>> = emptyMap(),
+    val deletedComment: Map<Long, List<Comment>> = emptyMap()
 )
 
 sealed interface BoardSideEffect {

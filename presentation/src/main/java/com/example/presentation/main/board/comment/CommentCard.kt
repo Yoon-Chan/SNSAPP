@@ -22,6 +22,7 @@ import com.example.presentation.ui.theme.SnsProjectTheme
 
 @Composable
 fun CommentCard(
+    isMine: Boolean,
     modifier: Modifier = Modifier,
     profileImageUrl: String? = null,
     username: String = "",
@@ -31,9 +32,9 @@ fun CommentCard(
     Surface {
         Row(
             modifier =
-                modifier
-                    .padding(vertical = 8.dp)
-                    .padding(start = 8.dp),
+            modifier
+                .padding(vertical = 8.dp)
+                .padding(start = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             ProfileImage(
@@ -47,12 +48,14 @@ fun CommentCard(
                 Text(text = text)
             }
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = onDeleteComment) {
-                Icon(
-                    modifier = Modifier.size(16.dp),
-                    imageVector = Icons.Default.Clear,
-                    contentDescription = "삭제",
-                )
+            if (isMine) {
+                IconButton(onClick = onDeleteComment) {
+                    Icon(
+                        modifier = Modifier.size(16.dp),
+                        imageVector = Icons.Default.Clear,
+                        contentDescription = "삭제",
+                    )
+                }
             }
         }
     }
@@ -66,6 +69,7 @@ private fun CommentCardPreview() {
             profileImageUrl = null,
             username = "username",
             text = "텍스트",
+            isMine = true,
             onDeleteComment = {},
         )
     }

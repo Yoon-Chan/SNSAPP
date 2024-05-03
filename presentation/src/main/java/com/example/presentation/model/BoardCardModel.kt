@@ -6,6 +6,7 @@ import com.example.domain.model.Comment
 
 @Immutable
 data class BoardCardModel(
+    val userId: Long,
     val boardId: Long,
     val images: List<String>,
     val username: String,
@@ -15,10 +16,11 @@ data class BoardCardModel(
 
 fun Board.toUiModel(): BoardCardModel {
     return BoardCardModel(
+        userId = this.userId,
         boardId = this.id,
         username = this.username,
         images = this.images,
         text = this.content,
-        comments = this.comments,
+        comments = this.comments
     )
 }

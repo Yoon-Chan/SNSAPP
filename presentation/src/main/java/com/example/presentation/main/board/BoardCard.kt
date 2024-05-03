@@ -31,6 +31,7 @@ import com.example.presentation.ui.theme.SnsProjectTheme
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BoardCard(
+    isMine: Boolean,
     boardId: Long,
     profileImageUrl: String? = null,
     username: String,
@@ -38,7 +39,7 @@ fun BoardCard(
     text: String,
     commentList: List<Comment>,
     onOptionClick: () -> Unit,
-    onDeleteComment: (Comment) -> Unit,
+    onDeleteComment: (Long, Comment) -> Unit,
     onCommentSend: (Long, String) -> Unit,
 ) {
     var commentDialogVisible by remember {
@@ -60,6 +61,7 @@ fun BoardCard(
         ) {
             // Header
             BoardHeader(
+                isMine = isMine,
                 modifier = Modifier.fillMaxWidth(),
                 profileImageUrl = profileImageUrl,
                 username = username,
@@ -120,13 +122,16 @@ fun BoardCard(
             
             if (commentDialogVisible) {
                 CommentDialog(
+                    isMine= isMine,
                     onDismissRequest = { commentDialogVisible = false },
                     comments = commentList,
                     onCloseClick = { commentDialogVisible = false },
                     onCommentSend = { text ->
                         onCommentSend(boardId, text)
                     },
-                    onDeleteComment = onDeleteComment,
+                    onDeleteComment = { comment ->
+                        onDeleteComment(boardId, comment)
+                    },
                 )
             }
         }
@@ -138,6 +143,7 @@ fun BoardCard(
 private fun BoardCardPreview() {
     SnsProjectTheme {
         BoardCard(
+            isMine = true,
             boardId = 1,
             profileImageUrl = null,
             username = "이름",
@@ -145,8 +151,8 @@ private fun BoardCardPreview() {
             text = "내용\n내용\n내용\n내용\n내용\n내용\n내용\n내용\n12312312내용\n내용\n12313",
             onOptionClick = {},
             commentList = listOf(),
-            onDeleteComment = {},
-            onCommentSend = { _, _ ->},
+            onDeleteComment = { _, _ -> },
+            onCommentSend = { _, _ -> },
         )
     }
 }

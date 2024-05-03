@@ -16,7 +16,7 @@ interface BoardService {
     suspend fun getBoard(
         @Query("page") page: Int,
         @Query("size") size: Int
-    ) : CommonResponse<List<BoardDTO>>
+    ): CommonResponse<List<BoardDTO>>
     
     @POST("boards")
     suspend fun postBoard(
@@ -25,7 +25,7 @@ interface BoardService {
     
     @DELETE("boards/{id}")
     suspend fun deleteBoard(
-       @Path("id") id: Long
+        @Path("id") id: Long
     ): CommonResponse<Long>
     
     @POST("boards/{id}/comments")
@@ -34,4 +34,9 @@ interface BoardService {
         @Body requestBody: RequestBody
     ): CommonResponse<Long>
     
+    @DELETE("boards/{boardId}/comments/{commentId}")
+    suspend fun deleteComment(
+        @Path("boardId") boardId: Long,
+        @Path("commentId") commentId: Long,
+    ): CommonResponse<Long>
 }
