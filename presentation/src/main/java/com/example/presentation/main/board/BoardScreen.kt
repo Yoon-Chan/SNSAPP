@@ -40,11 +40,11 @@ fun BoardScreen(viewModel: BoardViewModel) {
         onOptionClick = {
             modelForDialog = it
         },
-        addedComments= state.addedComments,
+        addedComments = state.addedComments,
         deletedComment = state.deletedComment,
         deletedBoardIds = state.deletedBoardIds,
         onDeleteComment = viewModel::onDeleteComment,
-        onCommentSend= viewModel::onCommentSend
+        onCommentSend = viewModel::onCommentSend,
     )
     BoardOptionDialog(
         boardCardModel = modelForDialog,
@@ -61,8 +61,8 @@ fun BoardScreen(
     addedComments: Map<Long, List<Comment>>,
     deletedComment: Map<Long, List<Comment>>,
     onOptionClick: (BoardCardModel) -> Unit,
-    onDeleteComment: (Long ,Comment) -> Unit,
-    onCommentSend: (Long, String) -> Unit
+    onDeleteComment: (Long, Comment) -> Unit,
+    onCommentSend: (Long, String) -> Unit,
 ) {
     Surface {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -72,7 +72,7 @@ fun BoardScreen(
                 boardCardModel[index]?.run {
                     if (!deletedBoardIds.contains(this.boardId)) {
                         BoardCard(
-                            isMine= userId == this.userId,
+                            isMine = userId == this.userId,
                             boardId = boardId,
                             username = username,
                             images = images,
@@ -82,7 +82,7 @@ fun BoardScreen(
                                 onOptionClick(this)
                             },
                             onDeleteComment = onDeleteComment,
-                            onCommentSend= onCommentSend
+                            onCommentSend = onCommentSend,
                         )
                     }
                 }

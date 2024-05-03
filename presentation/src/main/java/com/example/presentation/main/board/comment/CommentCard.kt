@@ -32,9 +32,9 @@ fun CommentCard(
     Surface {
         Row(
             modifier =
-            modifier
-                .padding(vertical = 8.dp)
-                .padding(start = 8.dp),
+                modifier
+                    .padding(vertical = 8.dp)
+                    .padding(start = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             ProfileImage(

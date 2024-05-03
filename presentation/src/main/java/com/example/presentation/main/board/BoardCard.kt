@@ -45,19 +45,19 @@ fun BoardCard(
     var commentDialogVisible by remember {
         mutableStateOf(false)
     }
-    
+
     Surface {
         val pagerState =
             rememberPagerState(
                 pageCount = { images.size },
             )
-        
+
         Column(
             modifier =
-            Modifier
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .fillMaxWidth()
-                .background(color = MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(16.dp)),
+                Modifier
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .fillMaxWidth()
+                    .background(color = MaterialTheme.colorScheme.onPrimary, shape = RoundedCornerShape(16.dp)),
         ) {
             // Header
             BoardHeader(
@@ -71,9 +71,9 @@ fun BoardCard(
             if (images.isNotEmpty()) {
                 ImagePager(
                     modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f),
+                        Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1f),
                     images = images,
                     pagerState = pagerState,
                 )
@@ -87,10 +87,10 @@ fun BoardCard(
             // content
             Text(
                 modifier =
-                Modifier
-                    .padding(top = 4.dp)
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
+                    Modifier
+                        .padding(top = 4.dp)
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp),
                 text = text,
                 maxLines = maxLines,
                 overflow = TextOverflow.Ellipsis,
@@ -98,7 +98,7 @@ fun BoardCard(
                     showMore = textLayoutResult.didOverflowHeight
                 },
             )
-            
+
             if (showMore) {
                 TextButton(onClick = { maxLines = Int.MAX_VALUE }) {
                     Text(
@@ -107,22 +107,22 @@ fun BoardCard(
                     )
                 }
             }
-            
+
             // comment
             TextButton(
                 modifier =
-                Modifier
-                    .padding(top = 8.dp)
-                    .padding(horizontal = 8.dp)
-                    .align(Alignment.End),
+                    Modifier
+                        .padding(top = 8.dp)
+                        .padding(horizontal = 8.dp)
+                        .align(Alignment.End),
                 onClick = { commentDialogVisible = true },
             ) {
                 Text(text = "댓글")
             }
-            
+
             if (commentDialogVisible) {
                 CommentDialog(
-                    isMine= isMine,
+                    isMine = isMine,
                     onDismissRequest = { commentDialogVisible = false },
                     comments = commentList,
                     onCloseClick = { commentDialogVisible = false },

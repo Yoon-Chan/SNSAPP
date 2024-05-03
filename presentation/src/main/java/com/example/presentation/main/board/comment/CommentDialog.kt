@@ -88,7 +88,7 @@ fun CommentDialog(
                         }) { index ->
                             val comment = comments[index]
                             CommentCard(
-                                isMine= isMine,
+                                isMine = isMine,
                                 modifier = Modifier,
                                 profileImageUrl = comment.profileImageUrl,
                                 username = comment.username,

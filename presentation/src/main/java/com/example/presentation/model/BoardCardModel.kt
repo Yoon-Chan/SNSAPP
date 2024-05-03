@@ -21,6 +21,6 @@ fun Board.toUiModel(): BoardCardModel {
         username = this.username,
         images = this.images,
         text = this.content,
-        comments = this.comments
+        comments = this.comments,
     )
 }
