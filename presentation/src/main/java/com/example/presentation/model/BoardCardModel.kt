@@ -3,6 +3,7 @@ package com.example.presentation.model
 import androidx.compose.runtime.Immutable
 import com.example.domain.model.Board
 import com.example.domain.model.Comment
+import com.mohamedrejeb.richeditor.model.RichTextState
 
 @Immutable
 data class BoardCardModel(
@@ -10,7 +11,7 @@ data class BoardCardModel(
     val boardId: Long,
     val images: List<String>,
     val username: String,
-    val text: String,
+    val richTextState: RichTextState,
     val comments: List<Comment>,
 )
 
@@ -20,7 +21,7 @@ fun Board.toUiModel(): BoardCardModel {
         boardId = this.id,
         username = this.username,
         images = this.images,
-        text = this.content,
+        richTextState = RichTextState().apply { setHtml(this@toUiModel.content) },
         comments = this.comments,
     )
 }

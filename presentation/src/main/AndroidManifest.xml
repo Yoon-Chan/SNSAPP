@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     
     <application>
-        <activity
-            android:name=".login.LoginActivity"/>
+        <activity android:name=".login.LoginActivity" />
         
-        <activity android:name=".main.MainActivity"/>
-        <activity android:name=".SplashActivity"
-            android:exported="true"
-            >
+        <activity android:name=".main.MainActivity" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 
@@ -18,7 +17,9 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".main.writing.WritingActivity"/>
+        <activity
+            android:name=".main.writing.WritingActivity"
+            android:windowSoftInputMode="adjustResize" />
     
     </application>
 </manifest>

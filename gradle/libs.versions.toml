@@ -32,6 +32,7 @@ compose-bom = "2024.04.00"
 
 ktlint-version = "12.1.0"
 retrofit = "2.9.0"
+richeditor-compose = "1.0.0-rc04"
 room-runtime = "2.6.1"
 
 ksp="1.9.0-1.0.12"
@@ -79,6 +80,7 @@ orbit-core = { module = "org.orbit-mvi:orbit-core", version.ref = "orbit-core" }
 orbit-test = { module = "org.orbit-mvi:orbit-test", version.ref = "orbit-test" }
 orbit-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbit-viewmodel" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+richeditor-compose = { module = "com.mohamedrejeb.richeditor:richeditor-compose", version.ref = "richeditor-compose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "plugins-application" }

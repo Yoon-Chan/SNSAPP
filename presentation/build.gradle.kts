@@ -83,4 +83,7 @@ dependencies {
 
     // paging3
     implementation(libs.androidx.paging.compose.v321)
+    
+    //rich text editor
+    implementation(libs.richeditor.compose)
 }
