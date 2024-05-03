@@ -27,4 +27,11 @@ interface BoardService {
     suspend fun deleteBoard(
        @Path("id") id: Long
     ): CommonResponse<Long>
+    
+    @POST("boards/{id}/comments")
+    suspend fun postComment(
+        @Path("id") boardId: Long,
+        @Body requestBody: RequestBody
+    ): CommonResponse<Long>
+    
 }

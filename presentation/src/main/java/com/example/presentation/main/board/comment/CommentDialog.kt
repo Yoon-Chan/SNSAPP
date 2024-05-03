@@ -35,10 +35,10 @@ import com.example.presentation.ui.theme.SnsProjectTheme
 
 @Composable
 fun CommentDialog(
+    comments: List<Comment>,
     onDismissRequest: () -> Unit,
     onCloseClick: () -> Unit,
-    onSendClick: () -> Unit,
-    comments: List<Comment>,
+    onCommentSend: (String) -> Unit,
     onDeleteComment: (Comment) -> Unit,
 ) {
     var text by remember {
@@ -107,7 +107,7 @@ fun CommentDialog(
                             onValueString = { text = it },
                         )
 
-                        IconButton(onClick = onSendClick) {
+                        IconButton(onClick = { onCommentSend(text) }) {
                             Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = "전송")
                         }
                     }
@@ -122,7 +122,7 @@ fun CommentDialog(
 private fun CommentDialogPreview() {
     SnsProjectTheme {
         CommentDialog(
-            onSendClick = {},
+            onCommentSend = {},
             onCloseClick = {},
             onDismissRequest = {},
             comments = listOf(),
