@@ -73,6 +73,7 @@ fun BoardScreen(
                     if (!deletedBoardIds.contains(this.boardId)) {
                         BoardCard(
                             isMine = userId == this.userId,
+                            userId = userId,
                             boardId = boardId,
                             username = username,
                             images = images,
@@ -83,6 +84,7 @@ fun BoardScreen(
                             },
                             onDeleteComment = onDeleteComment,
                             onCommentSend = onCommentSend,
+                            profileImageUrl = this.profileImageUrl,
                         )
                     }
                 }

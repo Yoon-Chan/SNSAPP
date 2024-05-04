@@ -36,6 +36,7 @@ fun BoardHeader(
             modifier =
                 Modifier
                     .padding(start = 8.dp)
+                    .padding(vertical = 8.dp)
                     .size(36.dp),
             profileImageUrl = profileImageUrl,
             borderWidth = 1.dp,

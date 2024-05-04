@@ -13,6 +13,7 @@ data class BoardCardModel(
     val username: String,
     val richTextState: RichTextState,
     val comments: List<Comment>,
+    val profileImageUrl: String? = null,
 )
 
 fun Board.toUiModel(): BoardCardModel {
@@ -23,5 +24,6 @@ fun Board.toUiModel(): BoardCardModel {
         images = this.images,
         richTextState = RichTextState().apply { setHtml(this@toUiModel.content) },
         comments = this.comments,
+        profileImageUrl = this.profileImageUrl,
     )
 }
