@@ -90,7 +90,7 @@ class BoardViewModel
                     text = text,
                     profileImageUrl = user.profileImageUrl,
                     id = commentId,
-                    createUserId = user.id
+                    createUserId = user.id,
                 )
             val newAddedComments =
                 state.addedComments +
