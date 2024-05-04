@@ -37,6 +37,7 @@ import com.mohamedrejeb.richeditor.ui.BasicRichText
 @Composable
 fun BoardCard(
     isMine: Boolean,
+    userId: Long,
     boardId: Long,
     profileImageUrl: String? = null,
     username: String,
@@ -126,12 +127,12 @@ fun BoardCard(
                         .align(Alignment.End),
                 onClick = { commentDialogVisible = true },
             ) {
-                Text(text = "댓글")
+                Text(text = "${commentList.size} 댓글")
             }
 
             if (commentDialogVisible) {
                 CommentDialog(
-                    isMine = isMine,
+                    userId = userId,
                     onDismissRequest = { commentDialogVisible = false },
                     comments = commentList,
                     onCloseClick = { commentDialogVisible = false },
@@ -154,6 +155,7 @@ private fun BoardCardPreview() {
         val richTextState = rememberRichTextState()
         BoardCard(
             isMine = true,
+            userId = 1,
             boardId = 1,
             profileImageUrl = null,
             username = "이름",

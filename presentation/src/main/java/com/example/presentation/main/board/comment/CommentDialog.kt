@@ -35,7 +35,7 @@ import com.example.presentation.ui.theme.SnsProjectTheme
 
 @Composable
 fun CommentDialog(
-    isMine: Boolean,
+    userId: Long,
     comments: List<Comment>,
     onDismissRequest: () -> Unit,
     onCloseClick: () -> Unit,
@@ -88,7 +88,7 @@ fun CommentDialog(
                         }) { index ->
                             val comment = comments[index]
                             CommentCard(
-                                isMine = isMine,
+                                isMine = userId == comment.createUserId,
                                 modifier = Modifier,
                                 profileImageUrl = comment.profileImageUrl,
                                 username = comment.username,
@@ -127,7 +127,7 @@ fun CommentDialog(
 private fun CommentDialogPreview() {
     SnsProjectTheme {
         CommentDialog(
-            isMine = true,
+            userId = 0,
             onCommentSend = {},
             onCloseClick = {},
             onDismissRequest = {},
