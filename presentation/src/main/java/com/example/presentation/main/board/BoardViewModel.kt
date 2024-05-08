@@ -63,6 +63,10 @@ class BoardViewModel
                 reduce {
                     state.copy(
                         myUserId = myUser.id,
+                    )
+                }
+                reduce {
+                    state.copy(
                         boardCardModelFLow = boardCardModelFlow,
                     )
                 }
