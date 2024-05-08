@@ -1,9 +1,10 @@
 package com.example.data.model
 
+import androidx.room.Entity
 import com.example.domain.model.Comment
 import com.google.gson.annotations.SerializedName
 
-
+@Entity
 data class CommentDTO(
     @SerializedName("id")
     val id: Long,

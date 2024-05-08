@@ -1,11 +1,15 @@
 package com.example.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.domain.model.Board
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
+@Entity
 data class BoardDTO(
     @SerializedName("id")
+    @PrimaryKey
     val id: Long,
     @SerializedName("title")
     val title: String,
