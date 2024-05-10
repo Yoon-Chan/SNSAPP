@@ -30,7 +30,7 @@ MVI 아키텍처를 이용하여 앱을 구현했으며, 이 과정에서 Orbit 
 
 | 로그인 | 로그 아웃 | 회원 가입 |
 | ------ | --------- | --------- |
-|        |           |           |
+|    ![login](https://github.com/Yoon-Chan/SNSAPP/assets/56026214/15846559-98ee-4096-88ec-576280c527bc) |    ![logout](https://github.com/Yoon-Chan/SNSAPP/assets/56026214/21e80782-5e53-4bdb-844d-0bd7248a75ec)  |     ![signup](https://github.com/Yoon-Chan/SNSAPP/assets/56026214/1d67276e-56e3-495d-8c89-d3a32fd9f1e8) |
 
 
 
@@ -38,7 +38,7 @@ MVI 아키텍처를 이용하여 앱을 구현했으며, 이 과정에서 Orbit 
 
 | 프로필 이미지 변경 | 닉네임 변경 |
 | ------------------ | ----------- |
-|                    |             |
+|         ![profile_change](https://github.com/Yoon-Chan/SNSAPP/assets/56026214/d375bb4c-4b45-4990-9e2c-2a8146481efe)  |        ![name_change](https://github.com/Yoon-Chan/SNSAPP/assets/56026214/f71f66c7-1c3a-45c1-9871-90f44e96f5db) |
 
 
 
@@ -46,16 +46,18 @@ MVI 아키텍처를 이용하여 앱을 구현했으며, 이 과정에서 Orbit 
 
 | 포스터 생성 | 포스터 삭제 |
 | ----------- | ----------- |
-|             |             |
+|      ![uploadpost](https://github.com/Yoon-Chan/SNSAPP/assets/56026214/54437d79-a4e9-479b-a53d-08db7f1fa949)  |        ![delete_post](https://github.com/Yoon-Chan/SNSAPP/assets/56026214/8b7ef2bf-f889-44bd-9649-ec3d0cb1ff2e) |
 
 
 
 ### 4. 댓글 추가 및 삭제
 
+![comment_add_delete](https://github.com/Yoon-Chan/SNSAPP/assets/56026214/2500a8a2-da46-4cbf-9e6f-d99e1f39d87c)
 
 
 ### 5. 포스터 본문 내용 텍스트 스타일 변경
 
+![chage_text_style](https://github.com/Yoon-Chan/SNSAPP/assets/56026214/e843ac6e-88aa-4b0f-8c64-ea6722125edc)
 
 
 
