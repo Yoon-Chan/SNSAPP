@@ -7,6 +7,9 @@
 #### 서버 URL
 https://github.com/Yoon-Chan/SNSAPP/tree/main/board
 
+### 노션
+https://www.notion.so/SNS-3ab3ac2bdd484f899d0f94fb5fbe0a21
+
 Compose UI를 이용하여 포스터를 올리고 삭제하는 CRUD 앱을 구현하는 프로젝트입니다.
 
 MVI 아키텍처를 이용하여 앱을 구현했으며, 이 과정에서 Orbit 라이브러리를 이용하여 보일러 플레이트를 없애는 방향으로 구현했습니다.
